@@ -1,0 +1,31 @@
+{
+"categories":[{"id":"themes","name":"Kart temaları"},{"id":"collectibles","name":"Dijital koleksiyon"},{"id":"badges","name":"Rozetler"},{"id":"avatars","name":"Avatarlar"},{"id":"exclusive","name":"Özel"},{"id":"consumables","name":"Tüketilebilir"},{"id":"bundles","name":"Paketler"}],
+"products":[
+{"id":"p_theme_carbon","name":"Karbon Çerçeve","desc":"İnce gümüş çerçeveli koyu kart teması.","cat":"themes","type":"permanent","acq":["Purchase"],"price":400,"inventory":{"policy":"unlimited"},"status":"published","version":1,"isNew":true,"usage":"Profil ve koleksiyon kartlarında geçerli."},
+{"id":"p_theme_grid","name":"Izgara Hattı","desc":"Geometrik ızgara desenli kart arka planı.","cat":"themes","type":"permanent","acq":["Purchase"],"price":650,"inventory":{"policy":"unlimited"},"status":"published","version":1,"usage":"Profil ve koleksiyon kartlarında geçerli."},
+{"id":"p_theme_mono","name":"Füme Yüzey","desc":"Mat füme yüzey ve beyaz vurgu çizgisi.","cat":"themes","type":"permanent","acq":["Purchase","Reward"],"price":300,"inventory":{"policy":"unlimited"},"status":"published","version":1,"usage":"Profil kartlarında geçerli."},
+{"id":"p_col_orbit","name":"Yörünge Çekirdeği","desc":"Koleksiyon amaçlı dijital öğe, seri no. içerir.","cat":"collectibles","type":"permanent","acq":["Purchase"],"price":900,"inventory":{"policy":"limited","total":50},"status":"published","version":1,"isNew":true,"usage":"Yalnızca koleksiyonda sergilenir."},
+{"id":"p_col_prism","name":"Prizma Parçası","desc":"Işığı bölen gümüş prizma figürü.","cat":"collectibles","type":"permanent","acq":["Purchase"],"price":550,"inventory":{"policy":"unlimited"},"status":"published","version":1,"usage":"Yalnızca koleksiyonda sergilenir."},
+{"id":"p_badge_pioneer","name":"Öncü Rozeti","desc":"İlk dönem kullanıcılarına özel profil rozeti.","cat":"badges","type":"permanent","acq":["Reward"],"price":0,"inventory":{"policy":"unlimited"},"status":"published","version":1,"usage":"Profil adının yanında görünür."},
+{"id":"p_badge_steel","name":"Çelik Rozet","desc":"Başarım serisini tamamlayanlara verilir.","cat":"badges","type":"permanent","acq":["Purchase","Reward"],"price":250,"inventory":{"policy":"unlimited"},"status":"published","version":1,"usage":"Profil adının yanında görünür."},
+{"id":"p_av_ghost","name":"Hayalet Avatar","desc":"Sade çizgilerle tasarlanmış profil avatarı.","cat":"avatars","type":"permanent","acq":["Purchase"],"price":350,"inventory":{"policy":"unlimited"},"status":"published","version":1,"usage":"Profil fotoğrafı olarak kullanılır."},
+{"id":"p_av_pack","name":"Mono Avatar Seti","desc":"Dört avatarlık siyah-beyaz set.","cat":"avatars","type":"permanent","acq":["Purchase"],"price":800,"inventory":{"policy":"unlimited"},"status":"published","version":1,"usage":"Profil fotoğrafı olarak kullanılır."},
+{"id":"p_ex_aurora","name":"Aurora Çerçeve","desc":"Etkinlik süresince kazanılabilen özel çerçeve.","cat":"exclusive","type":"permanent","acq":["Event"],"price":0,"inventory":{"policy":"seasonal"},"status":"published","version":1,"isNew":true,"usage":"Profil ve koleksiyon kartlarında geçerli."},
+{"id":"p_ex_vault","name":"Kasa Anahtarı","desc":"Yalnızca özel erişimle açılan koleksiyon öğesi.","cat":"exclusive","type":"permanent","acq":["Event"],"price":0,"inventory":{"policy":"seasonal"},"status":"published","version":1,"usage":"Yalnızca koleksiyonda sergilenir."},
+{"id":"p_cons_boost","name":"Vitrin Yükseltici","desc":"Profil vitrininde seçtiğin ürünü 24 saat öne çıkarır.","cat":"consumables","type":"consumable","acq":["Purchase","Reward"],"price":60,"inventory":{"policy":"unlimited"},"status":"published","version":1,"usage":"Her kullanımda 1 adet azalır; istediğin kadar tekrar edinebilirsin."},
+{"id":"p_cons_ink","name":"Parlatma Tozu","desc":"Bir kartın efektini bir kez yeniler.","cat":"consumables","type":"consumable","acq":["Purchase"],"price":40,"inventory":{"policy":"unlimited"},"status":"published","version":1,"usage":"Her kullanımda 1 adet azalır; istediğin kadar tekrar edinebilirsin."},
+{"id":"p_bun_starter","name":"Başlangıç Paketi","desc":"Karbon Çerçeve, Hayalet Avatar ve Çelik Rozet bir arada.","cat":"bundles","type":"bundle","items":["p_theme_carbon","p_av_ghost","p_badge_steel"],"acq":["Purchase"],"price":800,"inventory":{"policy":"unlimited"},"status":"published","version":1,"usage":"İçerikteki ürünler ayrı ayrı koleksiyona eklenir."},
+{"id":"p_draft","name":"Taslak ürün","desc":"Yayında değil.","cat":"themes","type":"permanent","acq":["Purchase"],"price":1,"inventory":{"policy":"unlimited"},"status":"draft","version":1,"usage":""}
+],
+"events":[
+{"id":"e_aurora","title":"Aurora Haftası","desc":"Görevleri tamamla, süreli ürünleri kazan.","startsH":-24,"endsH":72,"poolIds":["p_ex_aurora"]},
+{"id":"e_vault","title":"Kasa Açılışı","desc":"Yakında başlayacak etkinlik.","startsH":30,"endsH":120,"poolIds":["p_ex_vault"]},
+{"id":"e_past","title":"Gümüş Gece","desc":"Tamamlandı. Kazanımlar koleksiyonlarda kalır.","startsH":-300,"endsH":-200,"poolIds":[]}
+],
+"rewards":[
+{"id":"r_pioneer","title":"3 gün giriş yap","goal":3,"productId":"p_badge_pioneer","qty":1},
+{"id":"r_boost","title":"5 ürün incele","goal":5,"productId":"p_cons_boost","qty":2},
+{"id":"r_mono","title":"Başarım serisini bitir","goal":4,"productId":"p_theme_mono","qty":1},
+{"id":"r_aurora","title":"Aurora görevi: 3 görev tamamla","goal":3,"productId":"p_ex_aurora","qty":1,"eventId":"e_aurora"},
+{"id":"r_vault","title":"Kasa görevi: 2 görev tamamla","goal":2,"productId":"p_ex_vault","qty":1,"eventId":"e_vault"}
+]}
