@@ -39,20 +39,31 @@
     return `<article class="card"><a href="#/p/${p.id}" aria-label="${esc(p.name)} detayı">${art(p)}</a>
       <button class="heart" data-wish="${p.id}" aria-pressed="${wl}" aria-label="İstek listesi: ${esc(p.name)}">${wl ? "♥" : "♡"}</button>
       <div class="body"><div class="row"><h3>${esc(p.name)}</h3>${p.isNew ? '<span class="tag hl">Yeni</span>' : ""}</div>
-      <p>${esc(p.desc)}</p><div class="row"><span class="tag">${p.cat === "functions" ? "Fonksiyonel" : "Kart yüzeyi"}${p.type === "consumable" && n ? " · " + n + " adet" : ""}</span>${priceTag(p)}</div>
-      ${p.stock_left != null ? `<div class="stockline"><span>Sınırlı seri</span><b>${p.stock_left} / ${p.stock_total} kaldı</b></div>` : ""}</div></article>`;
+      <p>${esc(p.desc)}</p><div class="row"><span class="tag">${p.cat === "functions" ? "Fonksiyonel" : "Premium kart yüzeyi"}${p.type === "consumable" && n ? " · " + n + " adet" : ""}</span>${priceTag(p)}</div>
+      ${p.stock_left != null ? `<div class="stockline"><span>Sınırlı seri</span><b>${p.stock_left} / ${p.stock_total} kaldı</b></div>` : ""}
+      <div class="card-actions"><a class="btn ghost" href="#/p/${p.id}">Detayları gör</a>${owned(p) ? (p.skin ? `<a class="btn" href="${esc(C.BANK_URL)}/">Kartına tak</a>` : '<span class="tag">Koleksiyonunda</span>') : (p.stock_left === 0 ? '<span class="tag">Tükendi</span>' : (p.acq.includes("Purchase") ? `<button class="btn" data-buy="${p.id}">Satın al</button>` : ''))}</div></div></article>`;
   }
   const catName = (id) => (CAT.find((c) => c.id === id) || {}).name || id;
 
   const pages = {
     async home() {
-      const feat = PRODUCTS.find((p) => p.skin) || PRODUCTS[0], act = EVENTS.filter((e) => e.status === "active");
-      return `<section class="hero"><div><h1>Dijital ürünlerini keşfet, koleksiyonunu tamamla.</h1>
-        <p class="lead">FN bakiyenle satın al. Sınırlı sayıdaki özel kart yüzeyleri hesabına kalıcı olarak tanımlanır.</p>
-        <a class="btn" href="#/browse">Ürünlere göz at</a></div>${feat ? `<a href="#/p/${feat.id}">${art(feat)}</a>` : ""}</section>
-        <h2>Etkinlik vitrini</h2>${act.length ? `<div class="list">${act.map(evItem).join("")}</div>` : `<div class="empty">Şu an aktif etkinlik yok.</div>`}
-        <h2>Hazır kart tasarımları</h2><p class="lead">FN ile satın al; bankada Kartım sayfasından karta tak.</p><div class="grid">${PRODUCTS.filter((p) => p.skin).map(card).join("")}</div>
-        <h2>Fonksiyonel kartlar</h2><div class="grid">${PRODUCTS.filter((p) => p.cat === "functions").map(card).join("")}</div>`;
+      const designs = PRODUCTS.filter((p) => p.cat === "designs" && p.skin);
+      const functions = PRODUCTS.filter((p) => p.cat === "functions");
+      const feat = designs.find((p) => p.isNew) || designs[0] || PRODUCTS[0];
+      const act = EVENTS.filter((e) => e.status === "active");
+      const featured = designs.filter((p) => p.isNew).slice(0, 4);
+      const limited = designs.filter((p) => p.stock_left != null).slice(0, 6);
+      return `<section class="hero"><div class="hero-copy"><span class="eyebrow">FOREVYE NEXUS · DIGITAL ATELIER</span><h1>Kartın, koleksiyonun, imzan.</h1>
+        <p class="lead">Sıradan kart yüzeylerinden fazlası. Mücevher işçiliğinde SVG tasarımlar, numaralı özel edisyonlar ve gerçek hesap avantajları tek vitrinde.</p>
+        <div class="hero-stats"><span><b>${designs.length}</b><small>özel tasarım</small></span><span><b>${designs.filter(p => p.stock_left != null).length}</b><small>sınırlı seri</small></span><span><b>01</b><small>ortak koleksiyon</small></span></div>
+        <div class="hero-actions"><a class="btn" href="#/browse">Koleksiyonu keşfet</a><a class="btn ghost" href="#/collection">Koleksiyonum</a></div></div>
+        ${feat ? `<a class="hero-art" href="#/p/${feat.id}" aria-label="${esc(feat.name)} koleksiyonunu keşfet"><span class="hero-art-label">ÖNE ÇIKAN TASARIM</span>${art(feat)}<strong>${esc(feat.name)}</strong><small>${esc(feat.tagline || feat.desc)}</small></a>` : ""}</section>
+        <section class="catalog-intro"><div><span class="eyebrow">THE COLLECTION</span><h2>Bir tasarımdan fazlası.</h2><p class="lead">Her yüzeyin kendi karakteri, üretim adedi ve koleksiyon değeri var. Satın aldığın tasarımlar hesabına kalıcı olarak eklenir; banka kart editöründe kullanırsın.</p></div><a class="text-link" href="#/browse">Tüm tasarımları gör ↗</a></section>
+        <div class="grid featured-grid">${(featured.length ? featured : designs.slice(0,4)).map(card).join("")}</div>
+        ${act.length ? `<h2>Etkinlik vitrini</h2><div class="list">${act.map(evItem).join("")}</div>` : ""}
+        <section class="collection-banner"><div><span class="eyebrow">LIMITED OBJECTS</span><h2>Az üretildi. Sana özel.</h2><p>Numaralı seriler stok bitince yeniden üretilmez. Kalan adetleri ürün kartlarından takip et.</p></div><a class="btn" href="#/browse">Sınırlı serileri incele</a></section>
+        <h2>Son koleksiyonlar</h2><div class="grid">${limited.map(card).join("")}</div>
+        <h2>Fonksiyonel kartlar</h2><p class="lead">Sadece görünüş değil: transfer limitleri, borsa avantajları ve ek kart hakları sunan ürünler.</p><div class="grid">${functions.map(card).join("")}</div>`;
     },
     async browse() {
       let l = PRODUCTS.filter((p) => (state.cat === "all" || p.cat === state.cat) && (p.name + p.desc).toLowerCase().includes(state.q.toLowerCase()));
@@ -71,7 +82,8 @@
         <dl><dt>Edinme</dt><dd>Satın alma</dd><dt>Fiyat</dt><dd>${p.price.toLocaleString("tr-TR")} ${C.CURRENCY}</dd>
         <dt>Durum</dt><dd>${owned(p) ? "Zaten sende" : "Sahip değilsin"}</dd>
         ${p.stock_left != null ? `<dt>Sınırlı stok</dt><dd>${p.stock_left} / ${p.stock_total} adet kaldı</dd>` : ""}
-        <dt>Seri</dt><dd>${p.rarity || "Özel"}</dd><dt>Kullanım</dt><dd>${esc(p.usage)}</dd></dl>
+        ${ME.entitlements[p.id]?.serial ? `<dt>Satın alma numarası</dt><dd>${esc(ME.entitlements[p.id].serial)}</dd>` : ""}
+        <dt>Seviye</dt><dd>${({common:"Standart",rare:"Nadir",epic:"Destansı",legendary:"Efsanevi",mythic:"Mitik"})[p.rarity] || p.rarity || "Özel"}</dd><dt>Kullanım</dt><dd>${esc(p.usage)}</dd></dl>
         <div class="row" style="justify-content:flex-start">${action(p)}<button class="btn ghost" data-wish="${p.id}" aria-pressed="${wl}">${wl ? "Listeden çıkar" : "İstek listesine ekle"}</button></div></div></div>`;
     },
     async events() { const g = (s) => EVENTS.filter((e) => e.status === s);

@@ -1,486 +1,1602 @@
 {
-"categories": [
-{
-"id": "carddesigns",
-"name": "Hazır kart tasarımları"
-},
-{
-"id": "themes",
-"name": "Kart temaları"
-},
-{
-"id": "collectibles",
-"name": "Dijital koleksiyon"
-},
-{
-"id": "badges",
-"name": "Rozetler"
-},
-{
-"id": "avatars",
-"name": "Avatarlar"
-},
-{
-"id": "exclusive",
-"name": "Özel"
-},
-{
-"id": "consumables",
-"name": "Tüketilebilir"
-},
-{
-"id": "bundles",
-"name": "Paketler"
-}
-],
-"products": [
-{
-"id": "p_card_neon",
-"name": "Neon Izgara",
-"desc": "Parlayan siber ızgara ve nabız çizgisi; animasyonlu.",
-"cat": "carddesigns",
-"type": "permanent",
-"acq": [
-"Purchase"
-],
-"price": 1800,
-"inventory": {
-"policy": "unlimited"
-},
-"status": "published",
-"version": 1,
-"usage": "Bankada Kartım sayfasından karta takılır; kartın yüzeyi bu tasarımla çizilir. Kendi tasarımın silinmez.",
-"skin": "neon",
-"isNew": true
-},
-{
-"id": "p_card_emerald",
-"name": "Zümrüt Saray",
-"desc": "Yeşil zemin, altın ışınlar ve elmas.",
-"cat": "carddesigns",
-"type": "permanent",
-"acq": [
-"Purchase"
-],
-"price": 2400,
-"inventory": {
-"policy": "unlimited"
-},
-"status": "published",
-"version": 1,
-"usage": "Bankada Kartım sayfasından karta takılır; kartın yüzeyi bu tasarımla çizilir. Kendi tasarımın silinmez.",
-"skin": "emerald",
-"isNew": true
-},
-{
-"id": "p_card_sunset",
-"name": "Gün Batımı",
-"desc": "Mor-turuncu gökyüzü, güneş ve dalgalanan ufuk; animasyonlu.",
-"cat": "carddesigns",
-"type": "permanent",
-"acq": [
-"Purchase"
-],
-"price": 2200,
-"inventory": {
-"policy": "unlimited"
-},
-"status": "published",
-"version": 1,
-"usage": "Bankada Kartım sayfasından karta takılır; kartın yüzeyi bu tasarımla çizilir. Kendi tasarımın silinmez.",
-"skin": "sunset"
-},
-{
-"id": "p_card_frost",
-"name": "Buz Kristali",
-"desc": "Açık buz mavisi zeminde cam kristaller.",
-"cat": "carddesigns",
-"type": "permanent",
-"acq": [
-"Purchase"
-],
-"price": 2000,
-"inventory": {
-"policy": "unlimited"
-},
-"status": "published",
-"version": 1,
-"usage": "Bankada Kartım sayfasından karta takılır; kartın yüzeyi bu tasarımla çizilir. Kendi tasarımın silinmez.",
-"skin": "frost"
-},
-{
-"id": "p_card_crimson",
-"name": "Kızıl Gece",
-"desc": "Siyah zemin, nabız atan kızıl neon halka.",
-"cat": "carddesigns",
-"type": "permanent",
-"acq": [
-"Purchase"
-],
-"price": 2600,
-"inventory": {
-"policy": "unlimited"
-},
-"status": "published",
-"version": 1,
-"usage": "Bankada Kartım sayfasından karta takılır; kartın yüzeyi bu tasarımla çizilir. Kendi tasarımın silinmez.",
-"skin": "crimson"
-},
-{
-"id": "p_card_cosmos",
-"name": "Kozmos",
-"desc": "Gezegen, halka ve yıldız tozu. Sınırlı seri: 500 adet.",
-"cat": "carddesigns",
-"type": "permanent",
-"acq": [
-"Purchase"
-],
-"price": 3200,
-"inventory": {
-"policy": "limited",
-"total": 500
-},
-"status": "published",
-"version": 1,
-"usage": "Bankada Kartım sayfasından karta takılır; kartın yüzeyi bu tasarımla çizilir. Kendi tasarımın silinmez.",
-"skin": "cosmos",
-"isNew": true
-},
-{
-"id": "p_theme_carbon",
-"name": "Karbon Çerçeve",
-"desc": "İnce gümüş çerçeveli koyu kart teması.",
-"cat": "themes",
-"type": "permanent",
-"acq": [
-"Purchase"
-],
-"price": 400,
-"inventory": {
-"policy": "unlimited"
-},
-"status": "published",
-"version": 1,
-"isNew": true,
-"usage": "Profil ve koleksiyon kartlarında geçerli."
-},
-{
-"id": "p_theme_grid",
-"name": "Izgara Hattı",
-"desc": "Geometrik ızgara desenli kart arka planı.",
-"cat": "themes",
-"type": "permanent",
-"acq": [
-"Purchase"
-],
-"price": 650,
-"inventory": {
-"policy": "unlimited"
-},
-"status": "published",
-"version": 1,
-"usage": "Profil ve koleksiyon kartlarında geçerli."
-},
-{
-"id": "p_theme_mono",
-"name": "Füme Yüzey",
-"desc": "Mat füme yüzey ve beyaz vurgu çizgisi.",
-"cat": "themes",
-"type": "permanent",
-"acq": [
-"Purchase",
-"Reward"
-],
-"price": 300,
-"inventory": {
-"policy": "unlimited"
-},
-"status": "published",
-"version": 1,
-"usage": "Profil kartlarında geçerli."
-},
-{
-"id": "p_col_orbit",
-"name": "Yörünge Çekirdeği",
-"desc": "Koleksiyon amaçlı dijital öğe, seri no. içerir.",
-"cat": "collectibles",
-"type": "permanent",
-"acq": [
-"Purchase"
-],
-"price": 900,
-"inventory": {
-"policy": "limited",
-"total": 50
-},
-"status": "published",
-"version": 1,
-"isNew": true,
-"usage": "Yalnızca koleksiyonda sergilenir."
-},
-{
-"id": "p_col_prism",
-"name": "Prizma Parçası",
-"desc": "Işığı bölen gümüş prizma figürü.",
-"cat": "collectibles",
-"type": "permanent",
-"acq": [
-"Purchase"
-],
-"price": 550,
-"inventory": {
-"policy": "unlimited"
-},
-"status": "published",
-"version": 1,
-"usage": "Yalnızca koleksiyonda sergilenir."
-},
-{
-"id": "p_badge_pioneer",
-"name": "Öncü Rozeti",
-"desc": "İlk dönem kullanıcılarına özel profil rozeti.",
-"cat": "badges",
-"type": "permanent",
-"acq": [
-"Reward"
-],
-"price": 0,
-"inventory": {
-"policy": "unlimited"
-},
-"status": "published",
-"version": 1,
-"usage": "Profil adının yanında görünür."
-},
-{
-"id": "p_badge_steel",
-"name": "Çelik Rozet",
-"desc": "Başarım serisini tamamlayanlara verilir.",
-"cat": "badges",
-"type": "permanent",
-"acq": [
-"Purchase",
-"Reward"
-],
-"price": 250,
-"inventory": {
-"policy": "unlimited"
-},
-"status": "published",
-"version": 1,
-"usage": "Profil adının yanında görünür."
-},
-{
-"id": "p_av_ghost",
-"name": "Hayalet Avatar",
-"desc": "Sade çizgilerle tasarlanmış profil avatarı.",
-"cat": "avatars",
-"type": "permanent",
-"acq": [
-"Purchase"
-],
-"price": 350,
-"inventory": {
-"policy": "unlimited"
-},
-"status": "published",
-"version": 1,
-"usage": "Profil fotoğrafı olarak kullanılır."
-},
-{
-"id": "p_av_pack",
-"name": "Mono Avatar Seti",
-"desc": "Dört avatarlık siyah-beyaz set.",
-"cat": "avatars",
-"type": "permanent",
-"acq": [
-"Purchase"
-],
-"price": 800,
-"inventory": {
-"policy": "unlimited"
-},
-"status": "published",
-"version": 1,
-"usage": "Profil fotoğrafı olarak kullanılır."
-},
-{
-"id": "p_ex_aurora",
-"name": "Aurora Çerçeve",
-"desc": "Etkinlik süresince kazanılabilen özel çerçeve.",
-"cat": "exclusive",
-"type": "permanent",
-"acq": [
-"Event"
-],
-"price": 0,
-"inventory": {
-"policy": "seasonal"
-},
-"status": "published",
-"version": 1,
-"isNew": true,
-"usage": "Profil ve koleksiyon kartlarında geçerli."
-},
-{
-"id": "p_ex_vault",
-"name": "Kasa Anahtarı",
-"desc": "Yalnızca özel erişimle açılan koleksiyon öğesi.",
-"cat": "exclusive",
-"type": "permanent",
-"acq": [
-"Event"
-],
-"price": 0,
-"inventory": {
-"policy": "seasonal"
-},
-"status": "published",
-"version": 1,
-"usage": "Yalnızca koleksiyonda sergilenir."
-},
-{
-"id": "p_cons_boost",
-"name": "Vitrin Yükseltici",
-"desc": "Profil vitrininde seçtiğin ürünü 24 saat öne çıkarır.",
-"cat": "consumables",
-"type": "consumable",
-"acq": [
-"Purchase",
-"Reward"
-],
-"price": 60,
-"inventory": {
-"policy": "unlimited"
-},
-"status": "published",
-"version": 1,
-"usage": "Her kullanımda 1 adet azalır; istediğin kadar tekrar edinebilirsin."
-},
-{
-"id": "p_cons_ink",
-"name": "Parlatma Tozu",
-"desc": "Bir kartın efektini bir kez yeniler.",
-"cat": "consumables",
-"type": "consumable",
-"acq": [
-"Purchase"
-],
-"price": 40,
-"inventory": {
-"policy": "unlimited"
-},
-"status": "published",
-"version": 1,
-"usage": "Her kullanımda 1 adet azalır; istediğin kadar tekrar edinebilirsin."
-},
-{
-"id": "p_bun_starter",
-"name": "Başlangıç Paketi",
-"desc": "Karbon Çerçeve, Hayalet Avatar ve Çelik Rozet bir arada.",
-"cat": "bundles",
-"type": "bundle",
-"items": [
-"p_theme_carbon",
-"p_av_ghost",
-"p_badge_steel"
-],
-"acq": [
-"Purchase"
-],
-"price": 800,
-"inventory": {
-"policy": "unlimited"
-},
-"status": "published",
-"version": 1,
-"usage": "İçerikteki ürünler ayrı ayrı koleksiyona eklenir."
-},
-{
-"id": "p_draft",
-"name": "Taslak ürün",
-"desc": "Yayında değil.",
-"cat": "themes",
-"type": "permanent",
-"acq": [
-"Purchase"
-],
-"price": 1,
-"inventory": {
-"policy": "unlimited"
-},
-"status": "draft",
-"version": 1,
-"usage": ""
-}
-],
-"events": [
-{
-"id": "e_aurora",
-"title": "Aurora Haftası",
-"desc": "Görevleri tamamla, süreli ürünleri kazan.",
-"startsH": -24,
-"endsH": 72,
-"poolIds": [
-"p_ex_aurora"
-]
-},
-{
-"id": "e_vault",
-"title": "Kasa Açılışı",
-"desc": "Yakında başlayacak etkinlik.",
-"startsH": 30,
-"endsH": 120,
-"poolIds": [
-"p_ex_vault"
-]
-},
-{
-"id": "e_past",
-"title": "Gümüş Gece",
-"desc": "Tamamlandı. Kazanımlar koleksiyonlarda kalır.",
-"startsH": -300,
-"endsH": -200,
-"poolIds": []
-}
-],
-"rewards": [
-{
-"id": "r_pioneer",
-"title": "3 gün giriş yap",
-"goal": 3,
-"productId": "p_badge_pioneer",
-"qty": 1
-},
-{
-"id": "r_boost",
-"title": "5 ürün incele",
-"goal": 5,
-"productId": "p_cons_boost",
-"qty": 2
-},
-{
-"id": "r_mono",
-"title": "Başarım serisini bitir",
-"goal": 4,
-"productId": "p_theme_mono",
-"qty": 1
-},
-{
-"id": "r_aurora",
-"title": "Aurora görevi: 3 görev tamamla",
-"goal": 3,
-"productId": "p_ex_aurora",
-"qty": 1,
-"eventId": "e_aurora"
-},
-{
-"id": "r_vault",
-"title": "Kasa görevi: 2 görev tamamla",
-"goal": 2,
-"productId": "p_ex_vault",
-"qty": 1,
-"eventId": "e_vault"
-}
-]
+  "categories": [
+    {
+      "id": "designs",
+      "name": "Premium kart tasarımları"
+    },
+    {
+      "id": "functions",
+      "name": "Fonksiyonel kartlar"
+    }
+  ],
+  "products": [
+    {
+      "id": "p_card_neon",
+      "name": "Neon Izgara",
+      "desc": "Parlayan siber ızgara ve nabız çizgisi; animasyonlu.",
+      "cat": "carddesigns",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 1800,
+      "inventory": {
+        "policy": "unlimited"
+      },
+      "status": "draft",
+      "version": 1,
+      "usage": "Bankada Kartım sayfasından karta takılır; kartın yüzeyi bu tasarımla çizilir. Kendi tasarımın silinmez.",
+      "skin": "neon",
+      "isNew": true
+    },
+    {
+      "id": "p_card_emerald",
+      "name": "Zümrüt Saray",
+      "desc": "Yeşil zemin, altın ışınlar ve elmas.",
+      "cat": "carddesigns",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 2400,
+      "inventory": {
+        "policy": "unlimited"
+      },
+      "status": "draft",
+      "version": 1,
+      "usage": "Bankada Kartım sayfasından karta takılır; kartın yüzeyi bu tasarımla çizilir. Kendi tasarımın silinmez.",
+      "skin": "emerald",
+      "isNew": true
+    },
+    {
+      "id": "p_card_sunset",
+      "name": "Gün Batımı",
+      "desc": "Mor-turuncu gökyüzü, güneş ve dalgalanan ufuk; animasyonlu.",
+      "cat": "carddesigns",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 2200,
+      "inventory": {
+        "policy": "unlimited"
+      },
+      "status": "draft",
+      "version": 1,
+      "usage": "Bankada Kartım sayfasından karta takılır; kartın yüzeyi bu tasarımla çizilir. Kendi tasarımın silinmez.",
+      "skin": "sunset"
+    },
+    {
+      "id": "p_card_frost",
+      "name": "Buz Kristali",
+      "desc": "Açık buz mavisi zeminde cam kristaller.",
+      "cat": "carddesigns",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 2000,
+      "inventory": {
+        "policy": "unlimited"
+      },
+      "status": "draft",
+      "version": 1,
+      "usage": "Bankada Kartım sayfasından karta takılır; kartın yüzeyi bu tasarımla çizilir. Kendi tasarımın silinmez.",
+      "skin": "frost"
+    },
+    {
+      "id": "p_card_crimson",
+      "name": "Kızıl Gece",
+      "desc": "Siyah zemin, nabız atan kızıl neon halka.",
+      "cat": "carddesigns",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 2600,
+      "inventory": {
+        "policy": "unlimited"
+      },
+      "status": "draft",
+      "version": 1,
+      "usage": "Bankada Kartım sayfasından karta takılır; kartın yüzeyi bu tasarımla çizilir. Kendi tasarımın silinmez.",
+      "skin": "crimson"
+    },
+    {
+      "id": "p_card_cosmos",
+      "name": "Kozmos",
+      "desc": "Gezegen, halka ve yıldız tozu. Sınırlı seri: 500 adet.",
+      "cat": "carddesigns",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 3200,
+      "inventory": {
+        "policy": "limited",
+        "total": 500
+      },
+      "status": "draft",
+      "version": 1,
+      "usage": "Bankada Kartım sayfasından karta takılır; kartın yüzeyi bu tasarımla çizilir. Kendi tasarımın silinmez.",
+      "skin": "cosmos",
+      "isNew": true
+    },
+    {
+      "id": "p_theme_carbon",
+      "name": "Karbon Çerçeve",
+      "desc": "İnce gümüş çerçeveli koyu kart teması.",
+      "cat": "themes",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 400,
+      "inventory": {
+        "policy": "unlimited"
+      },
+      "status": "draft",
+      "version": 1,
+      "isNew": true,
+      "usage": "Profil ve koleksiyon kartlarında geçerli."
+    },
+    {
+      "id": "p_theme_grid",
+      "name": "Izgara Hattı",
+      "desc": "Geometrik ızgara desenli kart arka planı.",
+      "cat": "themes",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 650,
+      "inventory": {
+        "policy": "unlimited"
+      },
+      "status": "draft",
+      "version": 1,
+      "usage": "Profil ve koleksiyon kartlarında geçerli."
+    },
+    {
+      "id": "p_theme_mono",
+      "name": "Füme Yüzey",
+      "desc": "Mat füme yüzey ve beyaz vurgu çizgisi.",
+      "cat": "themes",
+      "type": "permanent",
+      "acq": [
+        "Purchase",
+        "Reward"
+      ],
+      "price": 300,
+      "inventory": {
+        "policy": "unlimited"
+      },
+      "status": "draft",
+      "version": 1,
+      "usage": "Profil kartlarında geçerli."
+    },
+    {
+      "id": "p_col_orbit",
+      "name": "Yörünge Çekirdeği",
+      "desc": "Koleksiyon amaçlı dijital öğe, seri no. içerir.",
+      "cat": "collectibles",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 900,
+      "inventory": {
+        "policy": "limited",
+        "total": 50
+      },
+      "status": "draft",
+      "version": 1,
+      "isNew": true,
+      "usage": "Yalnızca koleksiyonda sergilenir."
+    },
+    {
+      "id": "p_col_prism",
+      "name": "Prizma Parçası",
+      "desc": "Işığı bölen gümüş prizma figürü.",
+      "cat": "collectibles",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 550,
+      "inventory": {
+        "policy": "unlimited"
+      },
+      "status": "draft",
+      "version": 1,
+      "usage": "Yalnızca koleksiyonda sergilenir."
+    },
+    {
+      "id": "p_badge_pioneer",
+      "name": "Öncü Rozeti",
+      "desc": "İlk dönem kullanıcılarına özel profil rozeti.",
+      "cat": "badges",
+      "type": "permanent",
+      "acq": [
+        "Reward"
+      ],
+      "price": 0,
+      "inventory": {
+        "policy": "unlimited"
+      },
+      "status": "draft",
+      "version": 1,
+      "usage": "Profil adının yanında görünür."
+    },
+    {
+      "id": "p_badge_steel",
+      "name": "Çelik Rozet",
+      "desc": "Başarım serisini tamamlayanlara verilir.",
+      "cat": "badges",
+      "type": "permanent",
+      "acq": [
+        "Purchase",
+        "Reward"
+      ],
+      "price": 250,
+      "inventory": {
+        "policy": "unlimited"
+      },
+      "status": "draft",
+      "version": 1,
+      "usage": "Profil adının yanında görünür."
+    },
+    {
+      "id": "p_av_ghost",
+      "name": "Hayalet Avatar",
+      "desc": "Sade çizgilerle tasarlanmış profil avatarı.",
+      "cat": "avatars",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 350,
+      "inventory": {
+        "policy": "unlimited"
+      },
+      "status": "draft",
+      "version": 1,
+      "usage": "Profil fotoğrafı olarak kullanılır."
+    },
+    {
+      "id": "p_av_pack",
+      "name": "Mono Avatar Seti",
+      "desc": "Dört avatarlık siyah-beyaz set.",
+      "cat": "avatars",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 800,
+      "inventory": {
+        "policy": "unlimited"
+      },
+      "status": "draft",
+      "version": 1,
+      "usage": "Profil fotoğrafı olarak kullanılır."
+    },
+    {
+      "id": "p_ex_aurora",
+      "name": "Aurora Çerçeve",
+      "desc": "Etkinlik süresince kazanılabilen özel çerçeve.",
+      "cat": "exclusive",
+      "type": "permanent",
+      "acq": [
+        "Event"
+      ],
+      "price": 0,
+      "inventory": {
+        "policy": "seasonal"
+      },
+      "status": "draft",
+      "version": 1,
+      "isNew": true,
+      "usage": "Profil ve koleksiyon kartlarında geçerli."
+    },
+    {
+      "id": "p_ex_vault",
+      "name": "Kasa Anahtarı",
+      "desc": "Yalnızca özel erişimle açılan koleksiyon öğesi.",
+      "cat": "exclusive",
+      "type": "permanent",
+      "acq": [
+        "Event"
+      ],
+      "price": 0,
+      "inventory": {
+        "policy": "seasonal"
+      },
+      "status": "draft",
+      "version": 1,
+      "usage": "Yalnızca koleksiyonda sergilenir."
+    },
+    {
+      "id": "p_cons_boost",
+      "name": "Vitrin Yükseltici",
+      "desc": "Profil vitrininde seçtiğin ürünü 24 saat öne çıkarır.",
+      "cat": "consumables",
+      "type": "consumable",
+      "acq": [
+        "Purchase",
+        "Reward"
+      ],
+      "price": 60,
+      "inventory": {
+        "policy": "unlimited"
+      },
+      "status": "draft",
+      "version": 1,
+      "usage": "Her kullanımda 1 adet azalır; istediğin kadar tekrar edinebilirsin."
+    },
+    {
+      "id": "p_cons_ink",
+      "name": "Parlatma Tozu",
+      "desc": "Bir kartın efektini bir kez yeniler.",
+      "cat": "consumables",
+      "type": "consumable",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 40,
+      "inventory": {
+        "policy": "unlimited"
+      },
+      "status": "draft",
+      "version": 1,
+      "usage": "Her kullanımda 1 adet azalır; istediğin kadar tekrar edinebilirsin."
+    },
+    {
+      "id": "p_bun_starter",
+      "name": "Başlangıç Paketi",
+      "desc": "Karbon Çerçeve, Hayalet Avatar ve Çelik Rozet bir arada.",
+      "cat": "bundles",
+      "type": "bundle",
+      "items": [
+        "p_theme_carbon",
+        "p_av_ghost",
+        "p_badge_steel"
+      ],
+      "acq": [
+        "Purchase"
+      ],
+      "price": 800,
+      "inventory": {
+        "policy": "unlimited"
+      },
+      "status": "draft",
+      "version": 1,
+      "usage": "İçerikteki ürünler ayrı ayrı koleksiyona eklenir."
+    },
+    {
+      "id": "p_draft",
+      "name": "Taslak ürün",
+      "desc": "Yayında değil.",
+      "cat": "themes",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 1,
+      "inventory": {
+        "policy": "unlimited"
+      },
+      "status": "draft",
+      "version": 1,
+      "usage": ""
+    },
+    {
+      "id": "card_black",
+      "name": "Nexus Black",
+      "desc": "Altın çift çerçeveli, hareketli ışık süpürmeli siyah kart. Limitlerin 3 katı, borsada %90 daha dar fark ve 2 ek kart hakkı.",
+      "tagline": "Her şeyin en üstü. Yalnızca 50 adet.",
+      "cat": "functions",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 40000.0,
+      "inventory": {
+        "policy": "limited",
+        "total": 50
+      },
+      "status": "published",
+      "version": 1,
+      "usage": "Satın alındığında hesabına kalıcı eklenir; kart tasarımları banka kart editöründen karta uygulanır.",
+      "skin": "royal",
+      "perks": {
+        "limit_mult": 3,
+        "transfer_mult": 3,
+        "spread_discount_pct": 90,
+        "extra_cards": 2
+      },
+      "isNew": true,
+      "max_qty": 1
+    },
+    {
+      "id": "skin_guilloche",
+      "name": "Altın Gilyoş",
+      "desc": "Siyah zemin üzerinde matematiksel gilyoş rozet ve altın folyo parıltısı. Numaralı, 100 adetle sınırlı seri.",
+      "tagline": "Banknot işçiliğinde altın rozet.",
+      "cat": "designs",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 9500.0,
+      "inventory": {
+        "policy": "limited",
+        "total": 100
+      },
+      "status": "published",
+      "version": 1,
+      "usage": "Satın alındığında hesabına kalıcı eklenir; kart tasarımları banka kart editöründen karta uygulanır.",
+      "skin": "guilloche",
+      "perks": null,
+      "isNew": true,
+      "max_qty": 1
+    },
+    {
+      "id": "card_platinum",
+      "name": "Platin Borsa Kartı",
+      "desc": "İnce kazınmış platin yüzey. Kristal alış/satışında fark %60 azalır ve +1 kart hakkı verir.",
+      "tagline": "Kristal borsasında daha dar fark.",
+      "cat": "functions",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 12000.0,
+      "inventory": {
+        "policy": "limited",
+        "total": 80
+      },
+      "status": "published",
+      "version": 1,
+      "usage": "Satın alındığında hesabına kalıcı eklenir; kart tasarımları banka kart editöründen karta uygulanır.",
+      "skin": "platinum",
+      "perks": {
+        "spread_discount_pct": 60,
+        "extra_cards": 1
+      },
+      "isNew": false,
+      "max_qty": 1
+    },
+    {
+      "id": "skin_prism",
+      "name": "Prizma Cam",
+      "desc": "Renkli yüzeylere bölünmüş buzlu cam ve yavaşça süpüren ışık. Numaralı, 150 adetle sınırlı seri.",
+      "tagline": "Işığı bölen, hareketli cam yüzey.",
+      "cat": "designs",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 8000.0,
+      "inventory": {
+        "policy": "limited",
+        "total": 150
+      },
+      "status": "published",
+      "version": 1,
+      "usage": "Satın alındığında hesabına kalıcı eklenir; kart tasarımları banka kart editöründen karta uygulanır.",
+      "skin": "prism",
+      "perks": null,
+      "isNew": false,
+      "max_qty": 1
+    },
+    {
+      "id": "card_titan",
+      "name": "Titanyum Limit Kartı",
+      "desc": "Fırçalanmış titanyum yüzey. İşlem başına ve günlük transfer limitleri 2 katına çıkar.",
+      "tagline": "Günlük ve işlem limitin 2 katı.",
+      "cat": "functions",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 7500.0,
+      "inventory": {
+        "policy": "limited",
+        "total": 120
+      },
+      "status": "published",
+      "version": 1,
+      "usage": "Satın alındığında hesabına kalıcı eklenir; kart tasarımları banka kart editöründen karta uygulanır.",
+      "skin": "titan",
+      "perks": {
+        "limit_mult": 2,
+        "transfer_mult": 2
+      },
+      "isNew": false,
+      "max_qty": 1
+    },
+    {
+      "id": "skin_nebula",
+      "name": "Nebula",
+      "desc": "Derin uzay zemini üzerinde prosedürel bulutlar ve yıldız alanı.",
+      "tagline": "Yıldız tozu ve mor bulutlar.",
+      "cat": "designs",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 4800.0,
+      "inventory": {
+        "policy": "limited",
+        "total": 160
+      },
+      "status": "published",
+      "version": 1,
+      "usage": "Satın alındığında hesabına kalıcı eklenir; kart tasarımları banka kart editöründen karta uygulanır.",
+      "skin": "nebula",
+      "perks": null,
+      "isNew": false,
+      "max_qty": 1
+    },
+    {
+      "id": "skin_aurora",
+      "name": "Aurora",
+      "desc": "Zümrüt, mavi ve mor ışık akıntıları; renk geçişli ışıltılı kenar.",
+      "tagline": "Kuzey ışıkları akışı.",
+      "cat": "designs",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 4500.0,
+      "inventory": {
+        "policy": "limited",
+        "total": 180
+      },
+      "status": "published",
+      "version": 1,
+      "usage": "Satın alındığında hesabına kalıcı eklenir; kart tasarımları banka kart editöründen karta uygulanır.",
+      "skin": "aurora",
+      "perks": null,
+      "isNew": false,
+      "max_qty": 1
+    },
+    {
+      "id": "skin_carbon",
+      "name": "Karbon Fiber",
+      "desc": "Gerçek karbon örgü deseni ve kırmızı hız şeridi.",
+      "tagline": "Spor otomobil dokusu.",
+      "cat": "designs",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 2400.0,
+      "inventory": {
+        "policy": "limited",
+        "total": 220
+      },
+      "status": "published",
+      "version": 1,
+      "usage": "Satın alındığında hesabına kalıcı eklenir; kart tasarımları banka kart editöründen karta uygulanır.",
+      "skin": "carbon",
+      "perks": null,
+      "isNew": false,
+      "max_qty": 1
+    },
+    {
+      "id": "skin_onyx",
+      "name": "Oniks Mat",
+      "desc": "Mat siyah zemin, ince gilyoş dokusu ve şampanya altını çerçeve.",
+      "tagline": "Sade, mat, altın ince çizgili.",
+      "cat": "designs",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 1800.0,
+      "inventory": {
+        "policy": "limited",
+        "total": 250
+      },
+      "status": "published",
+      "version": 1,
+      "usage": "Satın alındığında hesabına kalıcı eklenir; kart tasarımları banka kart editöründen karta uygulanır.",
+      "skin": "onyx",
+      "perks": null,
+      "isNew": false,
+      "max_qty": 1
+    },
+    {
+      "id": "skin_singularity",
+      "name": "Singularity",
+      "desc": "Prosedürel yıldız alanı, mor enerji halkaları ve karanlık tekillik. Sadece 33 kart.",
+      "tagline": "Tekillik serisi · 33 adet.",
+      "cat": "designs",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 18000.0,
+      "inventory": {
+        "policy": "limited",
+        "total": 33
+      },
+      "status": "published",
+      "version": 1,
+      "usage": "Satın alındığında hesabına kalıcı eklenir; kart tasarımları banka kart editöründen karta uygulanır.",
+      "skin": "singularity",
+      "perks": null,
+      "isNew": true,
+      "max_qty": 1
+    },
+    {
+      "id": "skin_lunar",
+      "name": "Lunar Pearl",
+      "desc": "Ay kraterlerinden esinlenen mikro gravür, sedefli seramik ve yörünge çizgileri.",
+      "tagline": "Sedefli ay yüzeyi · 64 adet.",
+      "cat": "designs",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 12500.0,
+      "inventory": {
+        "policy": "limited",
+        "total": 64
+      },
+      "status": "published",
+      "version": 1,
+      "usage": "Satın alındığında hesabına kalıcı eklenir; kart tasarımları banka kart editöründen karta uygulanır.",
+      "skin": "lunar",
+      "perks": null,
+      "isNew": true,
+      "max_qty": 1
+    },
+    {
+      "id": "skin_aether",
+      "name": "Aether Glass",
+      "desc": "Katmanlı turkuaz cam, ışık kırılımları ve elde üretilmiş hissi veren geometrik fasetler.",
+      "tagline": "Kristal cam koleksiyonu · 48 adet.",
+      "cat": "designs",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 14000.0,
+      "inventory": {
+        "policy": "limited",
+        "total": 48
+      },
+      "status": "published",
+      "version": 1,
+      "usage": "Satın alındığında hesabına kalıcı eklenir; kart tasarımları banka kart editöründen karta uygulanır.",
+      "skin": "aether",
+      "perks": null,
+      "isNew": true,
+      "max_qty": 1
+    },
+    {
+      "id": "skin_phoenix",
+      "name": "Phoenix Ember",
+      "desc": "Alev tüyleri, ergimiş bakır damarlar ve sıcak metalik parıltı. Çok sınırlı edisyon.",
+      "tagline": "Anka serisi · 21 adet.",
+      "cat": "designs",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 22000.0,
+      "inventory": {
+        "policy": "limited",
+        "total": 21
+      },
+      "status": "published",
+      "version": 1,
+      "usage": "Satın alındığında hesabına kalıcı eklenir; kart tasarımları banka kart editöründen karta uygulanır.",
+      "skin": "phoenix",
+      "perks": null,
+      "isNew": true,
+      "max_qty": 1
+    },
+    {
+      "id": "skin_deepsea",
+      "name": "Abyssal Bio",
+      "desc": "Biyolüminesans organizmalar, derin okyanus katmanları ve organik ışık dokusu.",
+      "tagline": "Derin deniz · 88 adet.",
+      "cat": "designs",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 9800.0,
+      "inventory": {
+        "policy": "limited",
+        "total": 88
+      },
+      "status": "published",
+      "version": 1,
+      "usage": "Satın alındığında hesabına kalıcı eklenir; kart tasarımları banka kart editöründen karta uygulanır.",
+      "skin": "deepsea",
+      "perks": null,
+      "isNew": true,
+      "max_qty": 1
+    },
+    {
+      "id": "skin_chronos",
+      "name": "Chronos Engraved",
+      "desc": "Mikro kadran, 120 hassas saat çizgisi ve pirinç/altın gravür dokusu.",
+      "tagline": "Mekanik gravür · 42 adet.",
+      "cat": "designs",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 16000.0,
+      "inventory": {
+        "policy": "limited",
+        "total": 42
+      },
+      "status": "published",
+      "version": 1,
+      "usage": "Satın alındığında hesabına kalıcı eklenir; kart tasarımları banka kart editöründen karta uygulanır.",
+      "skin": "chronos",
+      "perks": null,
+      "isNew": true,
+      "max_qty": 1
+    },
+    {
+      "id": "skin_eclipse",
+      "name": "Solar Eclipse",
+      "desc": "Altın korona, tutulma halkası ve gece göğünde yayılan sıcak ışık.",
+      "tagline": "Tutulma edisyonu · 29 adet.",
+      "cat": "designs",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 20000.0,
+      "inventory": {
+        "policy": "limited",
+        "total": 29
+      },
+      "status": "published",
+      "version": 1,
+      "usage": "Satın alındığında hesabına kalıcı eklenir; kart tasarımları banka kart editöründen karta uygulanır.",
+      "skin": "eclipse",
+      "perks": null,
+      "isNew": true,
+      "max_qty": 1
+    },
+    {
+      "id": "skin_celestial",
+      "name": "Celestial Atlas",
+      "desc": "Safir gece yüzeyinde takımyıldız haritası, yıldız bağlantıları ve altın yörüngeler.",
+      "tagline": "Takımyıldız atlası · 56 adet.",
+      "cat": "designs",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 15000.0,
+      "inventory": {
+        "policy": "limited",
+        "total": 56
+      },
+      "status": "published",
+      "version": 1,
+      "usage": "Satın alındığında hesabına kalıcı eklenir; kart tasarımları banka kart editöründen karta uygulanır.",
+      "skin": "celestial",
+      "perks": null,
+      "isNew": true,
+      "max_qty": 1
+    },
+    {
+      "id": "slot_extra",
+      "name": "Ek Kart Hakkı",
+      "desc": "Her alışta kart sınırın bir artar (en fazla 5 kez alınabilir).",
+      "tagline": "Hesabına +1 sanal kart yeri.",
+      "cat": "functions",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 1200.0,
+      "inventory": {
+        "policy": "unlimited",
+        "total": null
+      },
+      "status": "published",
+      "version": 1,
+      "usage": "Satın alındığında hesabına kalıcı eklenir; kart tasarımları banka kart editöründen karta uygulanır.",
+      "skin": null,
+      "perks": {
+        "extra_cards": 1
+      },
+      "isNew": false,
+      "max_qty": 5
+    },
+    {
+      "id": "skin_imperial",
+      "name": "Imperial Lacquer",
+      "desc": "Bordo lake, altın yelpaze gravürü ve el işçiliği hissi veren katmanlı çerçeve.",
+      "tagline": "Bordo lake, altın yelpaze gravürü ve el işçiliği hissi veren katmanlı çerçeve.",
+      "cat": "designs",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 16500.0,
+      "inventory": {
+        "policy": "limited",
+        "total": 28
+      },
+      "status": "published",
+      "version": 1,
+      "usage": "Satın alındığında hesabına kalıcı eklenir; kart tasarımları banka kart editöründen karta uygulanır.",
+      "skin": "imperial",
+      "perks": null,
+      "isNew": true,
+      "max_qty": 1
+    },
+    {
+      "id": "skin_rose",
+      "name": "Rose Obsidian",
+      "desc": "Vişne siyahı obsidyen, gül altını damarlar ve saten parlaklık.",
+      "tagline": "Vişne siyahı obsidyen, gül altını damarlar ve saten parlaklık.",
+      "cat": "designs",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 11800.0,
+      "inventory": {
+        "policy": "limited",
+        "total": 54
+      },
+      "status": "published",
+      "version": 1,
+      "usage": "Satın alındığında hesabına kalıcı eklenir; kart tasarımları banka kart editöründen karta uygulanır.",
+      "skin": "rose",
+      "perks": null,
+      "isNew": true,
+      "max_qty": 1
+    },
+    {
+      "id": "skin_sapphire",
+      "name": "Sapphire Sovereign",
+      "desc": "Derin safir kristali, mikro yıldızlar ve çift katmanlı mücevher çerçeve.",
+      "tagline": "Derin safir kristali, mikro yıldızlar ve çift katmanlı mücevher çerçeve.",
+      "cat": "designs",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 13200.0,
+      "inventory": {
+        "policy": "limited",
+        "total": 48
+      },
+      "status": "published",
+      "version": 1,
+      "usage": "Satın alındığında hesabına kalıcı eklenir; kart tasarımları banka kart editöründen karta uygulanır.",
+      "skin": "sapphire",
+      "perks": null,
+      "isNew": true,
+      "max_qty": 1
+    },
+    {
+      "id": "skin_jade",
+      "name": "Jade Dynasty",
+      "desc": "Yeşim taşı damarları, altın mühür ve doğu esintili geometrik gravür.",
+      "tagline": "Yeşim taşı damarları, altın mühür ve doğu esintili geometrik gravür.",
+      "cat": "designs",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 12500.0,
+      "inventory": {
+        "policy": "limited",
+        "total": 50
+      },
+      "status": "published",
+      "version": 1,
+      "usage": "Satın alındığında hesabına kalıcı eklenir; kart tasarımları banka kart editöründen karta uygulanır.",
+      "skin": "jade",
+      "perks": null,
+      "isNew": true,
+      "max_qty": 1
+    },
+    {
+      "id": "skin_arctic",
+      "name": "Arctic Halo",
+      "desc": "Buzlu safir cam, kristal kırılmaları ve kutup ışığı halkası.",
+      "tagline": "Buzlu safir cam, kristal kırılmaları ve kutup ışığı halkası.",
+      "cat": "designs",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 8200.0,
+      "inventory": {
+        "policy": "limited",
+        "total": 92
+      },
+      "status": "published",
+      "version": 1,
+      "usage": "Satın alındığında hesabına kalıcı eklenir; kart tasarımları banka kart editöründen karta uygulanır.",
+      "skin": "arctic",
+      "perks": null,
+      "isNew": true,
+      "max_qty": 1
+    },
+    {
+      "id": "skin_volcanic",
+      "name": "Volcanic Glass",
+      "desc": "Bazalt siyahı üzerinde lav damarları ve erimiş bakır parıltısı.",
+      "tagline": "Bazalt siyahı üzerinde lav damarları ve erimiş bakır parıltısı.",
+      "cat": "designs",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 17200.0,
+      "inventory": {
+        "policy": "limited",
+        "total": 24
+      },
+      "status": "published",
+      "version": 1,
+      "usage": "Satın alındığında hesabına kalıcı eklenir; kart tasarımları banka kart editöründen karta uygulanır.",
+      "skin": "volcanic",
+      "perks": null,
+      "isNew": true,
+      "max_qty": 1
+    },
+    {
+      "id": "skin_amethyst",
+      "name": "Amethyst Vault",
+      "desc": "Mor jeot kristalleri, menekşe ışık ve keskin faset yansımaları.",
+      "tagline": "Mor jeot kristalleri, menekşe ışık ve keskin faset yansımaları.",
+      "cat": "designs",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 9400.0,
+      "inventory": {
+        "policy": "limited",
+        "total": 76
+      },
+      "status": "published",
+      "version": 1,
+      "usage": "Satın alındığında hesabına kalıcı eklenir; kart tasarımları banka kart editöründen karta uygulanır.",
+      "skin": "amethyst",
+      "perks": null,
+      "isNew": true,
+      "max_qty": 1
+    },
+    {
+      "id": "skin_monarch",
+      "name": "Monarch Wings",
+      "desc": "Altın kelebek kanadı simetrisi, ince damar çizgileri ve mücevher merkezi.",
+      "tagline": "Altın kelebek kanadı simetrisi, ince damar çizgileri ve mücevher merkezi.",
+      "cat": "designs",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 14500.0,
+      "inventory": {
+        "policy": "limited",
+        "total": 40
+      },
+      "status": "published",
+      "version": 1,
+      "usage": "Satın alındığında hesabına kalıcı eklenir; kart tasarımları banka kart editöründen karta uygulanır.",
+      "skin": "monarch",
+      "perks": null,
+      "isNew": true,
+      "max_qty": 1
+    },
+    {
+      "id": "skin_vortex",
+      "name": "Vortex Prime",
+      "desc": "Merkezine çeken enerji girdabı, ince ışık halkaları ve derin uzay.",
+      "tagline": "Merkezine çeken enerji girdabı, ince ışık halkaları ve derin uzay.",
+      "cat": "designs",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 18500.0,
+      "inventory": {
+        "policy": "limited",
+        "total": 22
+      },
+      "status": "published",
+      "version": 1,
+      "usage": "Satın alındığında hesabına kalıcı eklenir; kart tasarımları banka kart editöründen karta uygulanır.",
+      "skin": "vortex",
+      "perks": null,
+      "isNew": true,
+      "max_qty": 1
+    },
+    {
+      "id": "skin_quantum",
+      "name": "Quantum Flux",
+      "desc": "Kuantum devre yolları, neon düğümler ve çok katmanlı veri akışı.",
+      "tagline": "Kuantum devre yolları, neon düğümler ve çok katmanlı veri akışı.",
+      "cat": "designs",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 9900.0,
+      "inventory": {
+        "policy": "limited",
+        "total": 68
+      },
+      "status": "published",
+      "version": 1,
+      "usage": "Satın alındığında hesabına kalıcı eklenir; kart tasarımları banka kart editöründen karta uygulanır.",
+      "skin": "quantum",
+      "perks": null,
+      "isNew": true,
+      "max_qty": 1
+    },
+    {
+      "id": "skin_mech",
+      "name": "Mechano Royale",
+      "desc": "Saat mekanizması dişlileri, fırçalanmış pirinç ve mikro kadranlar.",
+      "tagline": "Saat mekanizması dişlileri, fırçalanmış pirinç ve mikro kadranlar.",
+      "cat": "designs",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 13800.0,
+      "inventory": {
+        "policy": "limited",
+        "total": 44
+      },
+      "status": "published",
+      "version": 1,
+      "usage": "Satın alındığında hesabına kalıcı eklenir; kart tasarımları banka kart editöründen karta uygulanır.",
+      "skin": "mech",
+      "perks": null,
+      "isNew": true,
+      "max_qty": 1
+    },
+    {
+      "id": "skin_topo",
+      "name": "Atlas Topography",
+      "desc": "Dağ sırtı topografyası, kontur gravürü ve pusula merkez rozeti.",
+      "tagline": "Dağ sırtı topografyası, kontur gravürü ve pusula merkez rozeti.",
+      "cat": "designs",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 8800.0,
+      "inventory": {
+        "policy": "limited",
+        "total": 84
+      },
+      "status": "published",
+      "version": 1,
+      "usage": "Satın alındığında hesabına kalıcı eklenir; kart tasarımları banka kart editöründen karta uygulanır.",
+      "skin": "topo",
+      "perks": null,
+      "isNew": true,
+      "max_qty": 1
+    },
+    {
+      "id": "skin_kintsugi",
+      "name": "Kintsugi Nocturne",
+      "desc": "Gece seramiği üzerinde altın onarım damarları; her kırık ayrı bir imza.",
+      "tagline": "Gece seramiği üzerinde altın onarım damarları; her kırık ayrı bir imza.",
+      "cat": "designs",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 17800.0,
+      "inventory": {
+        "policy": "limited",
+        "total": 20
+      },
+      "status": "published",
+      "version": 1,
+      "usage": "Satın alındığında hesabına kalıcı eklenir; kart tasarımları banka kart editöründen karta uygulanır.",
+      "skin": "kintsugi",
+      "perks": null,
+      "isNew": true,
+      "max_qty": 1
+    },
+    {
+      "id": "skin_marble",
+      "name": "Nero Marble",
+      "desc": "Siyah mermer, beyaz kuvars damarları ve minimal platin hat.",
+      "tagline": "Siyah mermer, beyaz kuvars damarları ve minimal platin hat.",
+      "cat": "designs",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 11200.0,
+      "inventory": {
+        "policy": "limited",
+        "total": 56
+      },
+      "status": "published",
+      "version": 1,
+      "usage": "Satın alındığında hesabına kalıcı eklenir; kart tasarımları banka kart editöründen karta uygulanır.",
+      "skin": "marble",
+      "perks": null,
+      "isNew": true,
+      "max_qty": 1
+    },
+    {
+      "id": "skin_opal",
+      "name": "Opaline Mirage",
+      "desc": "Opal taşından esinlenen katmanlı sedef, pembe-mavi ışık kırılması.",
+      "tagline": "Opal taşından esinlenen katmanlı sedef, pembe-mavi ışık kırılması.",
+      "cat": "designs",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 12600.0,
+      "inventory": {
+        "policy": "limited",
+        "total": 46
+      },
+      "status": "published",
+      "version": 1,
+      "usage": "Satın alındığında hesabına kalıcı eklenir; kart tasarımları banka kart editöründen karta uygulanır.",
+      "skin": "opal",
+      "perks": null,
+      "isNew": true,
+      "max_qty": 1
+    },
+    {
+      "id": "skin_lotus",
+      "name": "Lotus Nocturne",
+      "desc": "Gece nilüferi, simetrik yaprak gravürü ve ay ışığında gümüş merkez.",
+      "tagline": "Gece nilüferi, simetrik yaprak gravürü ve ay ışığında gümüş merkez.",
+      "cat": "designs",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 9200.0,
+      "inventory": {
+        "policy": "limited",
+        "total": 72
+      },
+      "status": "published",
+      "version": 1,
+      "usage": "Satın alındığında hesabına kalıcı eklenir; kart tasarımları banka kart editöründen karta uygulanır.",
+      "skin": "lotus",
+      "perks": null,
+      "isNew": true,
+      "max_qty": 1
+    },
+    {
+      "id": "skin_tiger",
+      "name": "Tiger Eye Reserve",
+      "desc": "Kaplan gözü taşının kehribar lifleri, optik derinlik ve bronz kenar.",
+      "tagline": "Kaplan gözü taşının kehribar lifleri, optik derinlik ve bronz kenar.",
+      "cat": "designs",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 11900.0,
+      "inventory": {
+        "policy": "limited",
+        "total": 52
+      },
+      "status": "published",
+      "version": 1,
+      "usage": "Satın alındığında hesabına kalıcı eklenir; kart tasarımları banka kart editöründen karta uygulanır.",
+      "skin": "tiger",
+      "perks": null,
+      "isNew": true,
+      "max_qty": 1
+    },
+    {
+      "id": "skin_seraph",
+      "name": "Seraphim Gold",
+      "desc": "Melek kanadı tüy gravürü, altın ışık ve kutsal geometri rozeti.",
+      "tagline": "Melek kanadı tüy gravürü, altın ışık ve kutsal geometri rozeti.",
+      "cat": "designs",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 19800.0,
+      "inventory": {
+        "policy": "limited",
+        "total": 18
+      },
+      "status": "published",
+      "version": 1,
+      "usage": "Satın alındığında hesabına kalıcı eklenir; kart tasarımları banka kart editöründen karta uygulanır.",
+      "skin": "seraph",
+      "perks": null,
+      "isNew": true,
+      "max_qty": 1
+    },
+    {
+      "id": "skin_glacier",
+      "name": "Glacier Bloom",
+      "desc": "Buz çiçeği kristalleri, donmuş cam katmanları ve soğuk gümüş.",
+      "tagline": "Buz çiçeği kristalleri, donmuş cam katmanları ve soğuk gümüş.",
+      "cat": "designs",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 8600.0,
+      "inventory": {
+        "policy": "limited",
+        "total": 88
+      },
+      "status": "published",
+      "version": 1,
+      "usage": "Satın alındığında hesabına kalıcı eklenir; kart tasarımları banka kart editöründen karta uygulanır.",
+      "skin": "glacier",
+      "perks": null,
+      "isNew": true,
+      "max_qty": 1
+    },
+    {
+      "id": "skin_solstice",
+      "name": "Solstice 24",
+      "desc": "Güneş ve ayın tek yüzeyde buluştuğu, astronomik halka gravürü.",
+      "tagline": "Güneş ve ayın tek yüzeyde buluştuğu, astronomik halka gravürü.",
+      "cat": "designs",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 14200.0,
+      "inventory": {
+        "policy": "limited",
+        "total": 38
+      },
+      "status": "published",
+      "version": 1,
+      "usage": "Satın alındığında hesabına kalıcı eklenir; kart tasarımları banka kart editöründen karta uygulanır.",
+      "skin": "solstice",
+      "perks": null,
+      "isNew": true,
+      "max_qty": 1
+    },
+    {
+      "id": "skin_tesseract",
+      "name": "Tesseract",
+      "desc": "Dört boyutlu geometri illüzyonu, perspektif küpler ve lazer hatlar.",
+      "tagline": "Dört boyutlu geometri illüzyonu, perspektif küpler ve lazer hatlar.",
+      "cat": "designs",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 19000.0,
+      "inventory": {
+        "policy": "limited",
+        "total": 16
+      },
+      "status": "published",
+      "version": 1,
+      "usage": "Satın alındığında hesabına kalıcı eklenir; kart tasarımları banka kart editöründen karta uygulanır.",
+      "skin": "tesseract",
+      "perks": null,
+      "isNew": true,
+      "max_qty": 1
+    },
+    {
+      "id": "skin_geode",
+      "name": "Geode Sovereign",
+      "desc": "Kristal mağara iç katmanları, ametist uçlar ve mineral damarları.",
+      "tagline": "Kristal mağara iç katmanları, ametist uçlar ve mineral damarları.",
+      "cat": "designs",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 13500.0,
+      "inventory": {
+        "policy": "limited",
+        "total": 42
+      },
+      "status": "published",
+      "version": 1,
+      "usage": "Satın alındığında hesabına kalıcı eklenir; kart tasarımları banka kart editöründen karta uygulanır.",
+      "skin": "geode",
+      "perks": null,
+      "isNew": true,
+      "max_qty": 1
+    },
+    {
+      "id": "skin_silk",
+      "name": "Silk Dynasty",
+      "desc": "Akışkan ipek kıvrımları, saten yüzey ve zarif altın dikiş.",
+      "tagline": "Akışkan ipek kıvrımları, saten yüzey ve zarif altın dikiş.",
+      "cat": "designs",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 9700.0,
+      "inventory": {
+        "policy": "limited",
+        "total": 70
+      },
+      "status": "published",
+      "version": 1,
+      "usage": "Satın alındığında hesabına kalıcı eklenir; kart tasarımları banka kart editöründen karta uygulanır.",
+      "skin": "silk",
+      "perks": null,
+      "isNew": true,
+      "max_qty": 1
+    },
+    {
+      "id": "skin_velvet",
+      "name": "Velvet Noir",
+      "desc": "Kadife bordo dokusu, siyah krom ve derin yakut parıltısı.",
+      "tagline": "Kadife bordo dokusu, siyah krom ve derin yakut parıltısı.",
+      "cat": "designs",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 12800.0,
+      "inventory": {
+        "policy": "limited",
+        "total": 44
+      },
+      "status": "published",
+      "version": 1,
+      "usage": "Satın alındığında hesabına kalıcı eklenir; kart tasarımları banka kart editöründen karta uygulanır.",
+      "skin": "velvet",
+      "perks": null,
+      "isNew": true,
+      "max_qty": 1
+    },
+    {
+      "id": "skin_neoncity",
+      "name": "Tokyo Afterglow",
+      "desc": "Gece şehri silueti, neon tabelalar ve yağmur sonrası yansımalar.",
+      "tagline": "Gece şehri silueti, neon tabelalar ve yağmur sonrası yansımalar.",
+      "cat": "designs",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 10500.0,
+      "inventory": {
+        "policy": "limited",
+        "total": 64
+      },
+      "status": "published",
+      "version": 1,
+      "usage": "Satın alındığında hesabına kalıcı eklenir; kart tasarımları banka kart editöründen karta uygulanır.",
+      "skin": "neoncity",
+      "perks": null,
+      "isNew": true,
+      "max_qty": 1
+    },
+    {
+      "id": "skin_matrix",
+      "name": "Matrix Cipher",
+      "desc": "Dijital kod yağmuru, mikro ızgara ve yeşil fosforik izler.",
+      "tagline": "Dijital kod yağmuru, mikro ızgara ve yeşil fosforik izler.",
+      "cat": "designs",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 5200.0,
+      "inventory": {
+        "policy": "limited",
+        "total": 180
+      },
+      "status": "published",
+      "version": 1,
+      "usage": "Satın alındığında hesabına kalıcı eklenir; kart tasarımları banka kart editöründen karta uygulanır.",
+      "skin": "matrix",
+      "perks": null,
+      "isNew": true,
+      "max_qty": 1
+    },
+    {
+      "id": "skin_mosaic",
+      "name": "Celadon Mosaic",
+      "desc": "El yapımı mozaik parçaları, seramik sır ve ince metal birleşimler.",
+      "tagline": "El yapımı mozaik parçaları, seramik sır ve ince metal birleşimler.",
+      "cat": "designs",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 8900.0,
+      "inventory": {
+        "policy": "limited",
+        "total": 82
+      },
+      "status": "published",
+      "version": 1,
+      "usage": "Satın alındığında hesabına kalıcı eklenir; kart tasarımları banka kart editöründen karta uygulanır.",
+      "skin": "mosaic",
+      "perks": null,
+      "isNew": true,
+      "max_qty": 1
+    },
+    {
+      "id": "skin_circuit",
+      "name": "Aurum Circuit",
+      "desc": "Altın devre şeması, hassas bağlantı düğümleri ve siyah titanyum.",
+      "tagline": "Altın devre şeması, hassas bağlantı düğümleri ve siyah titanyum.",
+      "cat": "designs",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 14700.0,
+      "inventory": {
+        "policy": "limited",
+        "total": 36
+      },
+      "status": "published",
+      "version": 1,
+      "usage": "Satın alındığında hesabına kalıcı eklenir; kart tasarımları banka kart editöründen karta uygulanır.",
+      "skin": "circuit",
+      "perks": null,
+      "isNew": true,
+      "max_qty": 1
+    },
+    {
+      "id": "skin_plasma",
+      "name": "Plasma Crown",
+      "desc": "Mor plazma koronu, iyon halkaları ve elektrik arkı katmanları.",
+      "tagline": "Mor plazma koronu, iyon halkaları ve elektrik arkı katmanları.",
+      "cat": "designs",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 20500.0,
+      "inventory": {
+        "policy": "limited",
+        "total": 14
+      },
+      "status": "published",
+      "version": 1,
+      "usage": "Satın alındığında hesabına kalıcı eklenir; kart tasarımları banka kart editöründen karta uygulanır.",
+      "skin": "plasma",
+      "perks": null,
+      "isNew": true,
+      "max_qty": 1
+    },
+    {
+      "id": "skin_monsoon",
+      "name": "Monsoon Noire",
+      "desc": "Fırtına bulutları, gümüş yağmur çizgileri ve elektrik mavisi ufuk.",
+      "tagline": "Fırtına bulutları, gümüş yağmur çizgileri ve elektrik mavisi ufuk.",
+      "cat": "designs",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 9300.0,
+      "inventory": {
+        "policy": "limited",
+        "total": 74
+      },
+      "status": "published",
+      "version": 1,
+      "usage": "Satın alındığında hesabına kalıcı eklenir; kart tasarımları banka kart editöründen karta uygulanır.",
+      "skin": "monsoon",
+      "perks": null,
+      "isNew": true,
+      "max_qty": 1
+    },
+    {
+      "id": "skin_artdeco",
+      "name": "Art Deco 1928",
+      "desc": "1920’ler mimarisinden altın yelpazeler, dikey çizgiler ve siyah lake.",
+      "tagline": "1920’ler mimarisinden altın yelpazeler, dikey çizgiler ve siyah lake.",
+      "cat": "designs",
+      "type": "permanent",
+      "acq": [
+        "Purchase"
+      ],
+      "price": 15100.0,
+      "inventory": {
+        "policy": "limited",
+        "total": 34
+      },
+      "status": "published",
+      "version": 1,
+      "usage": "Satın alındığında hesabına kalıcı eklenir; kart tasarımları banka kart editöründen karta uygulanır.",
+      "skin": "artdeco",
+      "perks": null,
+      "isNew": true,
+      "max_qty": 1
+    }
+  ],
+  "events": [
+    {
+      "id": "e_aurora",
+      "title": "Aurora Haftası",
+      "desc": "Görevleri tamamla, süreli ürünleri kazan.",
+      "startsH": -24,
+      "endsH": 72,
+      "poolIds": [
+        "p_ex_aurora"
+      ]
+    },
+    {
+      "id": "e_vault",
+      "title": "Kasa Açılışı",
+      "desc": "Yakında başlayacak etkinlik.",
+      "startsH": 30,
+      "endsH": 120,
+      "poolIds": [
+        "p_ex_vault"
+      ]
+    },
+    {
+      "id": "e_past",
+      "title": "Gümüş Gece",
+      "desc": "Tamamlandı. Kazanımlar koleksiyonlarda kalır.",
+      "startsH": -300,
+      "endsH": -200,
+      "poolIds": []
+    }
+  ],
+  "rewards": [
+    {
+      "id": "r_pioneer",
+      "title": "3 gün giriş yap",
+      "goal": 3,
+      "productId": "p_badge_pioneer",
+      "qty": 1
+    },
+    {
+      "id": "r_boost",
+      "title": "5 ürün incele",
+      "goal": 5,
+      "productId": "p_cons_boost",
+      "qty": 2
+    },
+    {
+      "id": "r_mono",
+      "title": "Başarım serisini bitir",
+      "goal": 4,
+      "productId": "p_theme_mono",
+      "qty": 1
+    },
+    {
+      "id": "r_aurora",
+      "title": "Aurora görevi: 3 görev tamamla",
+      "goal": 3,
+      "productId": "p_ex_aurora",
+      "qty": 1,
+      "eventId": "e_aurora"
+    },
+    {
+      "id": "r_vault",
+      "title": "Kasa görevi: 2 görev tamamla",
+      "goal": 2,
+      "productId": "p_ex_vault",
+      "qty": 1,
+      "eventId": "e_vault"
+    }
+  ]
 }
