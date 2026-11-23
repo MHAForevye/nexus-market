@@ -114,11 +114,46 @@
     return `<article class="card"><a href="#/p/${p.id}">${art(p)}</a><div class="body"><h3>${esc(p.name)}</h3><span class="tag">${catName(p.cat)}</span>
       <small>${SRC[e.source]} · ${fmtDate(e.acquired_at)}${e.serial ? " · Seri " + esc(e.serial) : ""}</small><div class="row"><b>Sahipsin</b>${p.skin ? `<a class="btn ghost" href="${esc(C.BANK_URL)}/">Banka editöründe kullan</a>` : ""}</div></div></article>`; }
 
+  function purchaseDialog(p) {
+    return new Promise((resolve) => {
+      const m = $("#modal"), cards = (ME.cards || []).filter((c) => c.status === "active");
+      const fmt = (v) => Number(v || 0).toLocaleString("tr-TR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      const opts = [`<option value="">Ana cüzdan · ${fmt(ME.balance)} ${C.CURRENCY}</option>`, ...cards.map((c) => `<option value="${esc(c.id)}">${esc(c.label || c.display_name || "Sanal kart")} · ${fmt(Number(c.balance || 0) / 100)} ${C.CURRENCY}${c.is_default ? " · Varsayılan" : ""}</option>`)].join("");
+      m.hidden = false;
+      m.innerHTML = `<div class="dlg" role="dialog" aria-modal="true"><h3>Satın alma onayı</h3>
+        <div class="row"><span>${esc(p.name)}</span><b>${fmt(p.price)} ${C.CURRENCY}</b></div>
+        <label class="field"><span>Ödeme kaynağı</span><select id="purchase-source">${opts}</select></label>
+        <p id="purchase-source-info" class="note"></p>
+        <div class="acts"><button class="btn ghost" data-x="0">Vazgeç</button><button class="btn" data-x="1">Satın al</button></div></div>`;
+      const select = m.querySelector("#purchase-source"), info = m.querySelector("#purchase-source-info"), submit = m.querySelector("[data-x='1']");
+      const chosenBalance = () => select.value ? Number(cards.find((c) => c.id === select.value)?.balance || 0) / 100 : Number(ME.balance || 0);
+      const update = () => {
+        const available = chosenBalance(), missing = Math.max(0, p.price - available);
+        info.textContent = missing ? `Yetersiz bakiye · ${fmt(missing)} ${C.CURRENCY} daha gerekli.` : `Ödeme sonrası kalan: ${fmt(available - p.price)} ${C.CURRENCY}`;
+        info.className = missing ? "note err" : "note";
+        submit.disabled = missing > 0;
+      };
+      const done = (value) => { m.hidden = true; m.innerHTML = ""; resolve(value); };
+      select.addEventListener("change", update);
+      m.onclick = (e) => {
+        const x = e.target.dataset.x;
+        if (x === "0") done(false);
+        else if (x === "1" && !submit.disabled) done({ cardId: select.value || null });
+        else if (e.target === m) done(false);
+      };
+      update(); submit.focus();
+    });
+  }
   async function buy(id) {
-    const p = PRODUCTS.find((x) => x.id === id), after = ME.balance - p.price;
-    const ok = await confirmBox(`<h3>Satın alma onayı</h3><div class="row"><span>${esc(p.name)}</span><b>${p.price} ${C.CURRENCY}</b></div><div class="row"><span>Kalan bakiye</span><b>${after} ${C.CURRENCY}</b></div>${after < 0 ? '<p class="lead">Bakiyen yetersiz.</p>' : ""}`, "Satın al");
-    if (!ok) return;
-    try { await A.purchase(id, A.uid("idem")); toast("Satın alındı"); await reload(); } catch (e) { toast(e.message, true); await verify(); }
+    const p = PRODUCTS.find((x) => x.id === id);
+    if (!p) return;
+    const choice = await purchaseDialog(p);
+    if (!choice) return;
+    try {
+      const result = await A.purchase(id, A.uid("idem"), choice.cardId);
+      toast(result.payment?.method === "card" ? `Satın alındı · ${result.payment.card_label || "Seçilen kart"} kartından ödendi` : "Satın alındı");
+      await reload();
+    } catch (e) { toast(e.message, true); await verify(); }
   }
   async function verify() { await refreshMe(); } // belirsiz ağ hatasında bakiye/sahiplik sunucudan yeniden okunur
   async function reload() { await refreshMe(); PRODUCTS = await A.products(); await render(); }

@@ -146,14 +146,14 @@
     async me() { const r = await req("GET", "/me"); return { balance: Number(r.balance || 0) / 100, entitlements: entitlementMap(r.entitlements), wishlist: r.wishlist || [], user: r.user, perks: r.perks, limits: r.limits, cards: r.cards || [] }; },
     async ledger() { const r = await req("GET", "/purchases?page=0&size=30"); return (r.items || []).map(x => ({ id: x.id, at: x.at, type: "Purchase", product_id: x.product_id, name: x.name, amount: -Number(x.price || 0) / 100, balance_after: null, serial: x.serial, status: x.status })); },
     async wishlistToggle(id) { const r = await req("POST", "/wishlist", { pid: id }); return r.wishlist || []; },
-    async purchase(id, key) {
-      const r = await req("POST", "/purchase", { pid: id, idem: key });
+    async purchase(id, key, cardId = null) {
+      const r = await req("POST", "/purchase", { pid: id, idem: key, ...(cardId ? { card_id: cardId } : {}) });
       if (r.ok === false) {
-        const messages = { sold_out: ["SOLD_OUT", "Bu tasarımın sınırlı stoğu tükendi."], insufficient: ["INSUFFICIENT_BALANCE", "FN bakiyen yetersiz."], already_owned: ["ALREADY_OWNED", "Bu ürüne zaten sahipsin."], unavailable: ["UNAVAILABLE", "Ürün şu anda satışta değil."] };
+        const messages = { sold_out: ["SOLD_OUT", "Bu tasarımın sınırlı stoğu tükendi."], insufficient: ["INSUFFICIENT_BALANCE", "Ana cüzdanındaki FN bakiyesi yetersiz."], insufficient_card: ["INSUFFICIENT_CARD_BALANCE", "Seçtiğin kartın bakiyesi yetersiz. Önce karta FN yükle."], card_disabled: ["CARD_DISABLED", "Devre dışı kartla ödeme yapılamaz."], already_owned: ["ALREADY_OWNED", "Bu ürüne zaten sahipsin."], unavailable: ["UNAVAILABLE", "Ürün şu anda satışta değil."] };
         const m = messages[r.code] || [String(r.code || "ERROR").toUpperCase(), "Satın alma tamamlanamadı."];
         fail(m[0], m[1]);
       }
-      return { transaction_id: r.purchase && r.purchase.id, balance: Number(r.balance || 0) / 100, purchase: r.purchase, entitlement: r.entitlement };
+      return { transaction_id: r.purchase && r.purchase.id, balance: Number(r.balance || 0) / 100, purchase: r.purchase, entitlement: r.entitlement, payment: r.payment || { method: 'wallet' } };
     },
     async rewards() { return []; },
     async advance() { fail("UNSUPPORTED", "Görev ilerlemesi bu mağaza sürümünde etkin değil."); },
