@@ -16,6 +16,9 @@ python3 -m http.server 8080   # sonra http://localhost:8080
 - **Mock (varsayılan):** `js/config.js` içinde `API_BASE` boş. Bakiye, sahiplik, ledger ve idempotency tarayıcıda (localStorage) taklit edilir. Yalnızca prototip içindir; güvenilir değildir.
 - **Gerçek:** `API_BASE` değerine sunucu adresini yazın. UI aynı kalır, `js/api.js` istekleri `docs/API.md` sözleşmesine göre gönderir.
 
+## Kart tasarımları (FN)
+Para birimi FN. `data/products.json` içindeki **Hazır kart tasarımları** kategorisi 6 yüzey satar (Neon Izgara, Zümrüt Saray, Gün Batımı, Buz Kristali, Kızıl Gece, Kozmos). Ürün kartları `js/card/*` (bankayla aynı dosyalar: `rules.js`, `render.js`, `skins.js`, `wallet.js`) ile çizilir. Satın alınan yüzey ortak FN cüzdanına yazılır ve bankada **Kartım → Kart yüzeylerim** bölümünden takılır. `config.js` → `BANK_URL` bankanın adresi olmalı.
+
 ## Yapı
 ```
 index.html        hash tabanlı sayfa iskeleti

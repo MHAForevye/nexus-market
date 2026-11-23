@@ -16,8 +16,14 @@
     seed.events.forEach((e) => { e.starts_at = t0 + e.startsH * 36e5; e.ends_at = t0 + e.endsH * 36e5; });
     return seed;
   }
-  const load = () => JSON.parse(localStorage.getItem(KEY) || "null") ||
-    { balance: 2500, ent: {}, wish: [], ledger: [], idem: {}, progress: {}, claims: {}, used: {} };
+  // Bakiye ve kart yüzeyi sahipliği bankayla ORTAK cüzdandan gelir (js/card/wallet.js, aynı alan adında localStorage paylaşılır).
+  const WL = window.FNXWallet;
+  const load = () => {
+    const s = JSON.parse(localStorage.getItem(KEY) || "null") || { balance: 0, ent: {}, wish: [], ledger: [], idem: {}, progress: {}, claims: {}, used: {} };
+    s.balance = WL.balance();
+    if (seed) seed.products.forEach((p) => { if (p.skin && WL.owns(p.skin) && !s.ent[p.id]) s.ent[p.id] = { qty: 1, acquired_at: serverNow(), source: "Purchase", transaction_id: "wallet" }; });
+    return s;
+  };
   const save = (s) => localStorage.setItem(KEY, JSON.stringify(s));
   const evStatus = (e) => e.cancelled ? "cancelled" : serverNow() < e.starts_at ? "upcoming" : serverNow() > e.ends_at ? "ended" : "active";
 
@@ -54,9 +60,11 @@
       if (p.type === "bundle" && p.items.every((i) => seed.products.find((x) => x.id === i).type === "permanent" && s.ent[i])) fail("ALREADY_OWNED", "Paketteki tüm ürünlere zaten sahipsin.");
       if (p.inventory.policy === "limited" && (s.used[id] || 0) >= p.inventory.total) fail("SOLD_OUT", "Stok tükendi.");
       if (s.balance < p.price) fail("INSUFFICIENT_BALANCE", `Yetersiz bakiye. ${p.price - s.balance} ${C.CURRENCY} daha gerekli.`);
-      const tx = uid("tx");
+      // Ortak cüzdan: bakiye düşümü + hareket + (kart yüzeyiyse) bankaya teslim TEK işlemde.
+      let w; try { w = WL.buy({ key, price: p.price, name: p.name, product: id, grant: p.skin || null }); } catch (e) { fail(e.code || "ERROR", e.message); }
+      const tx = w.transaction_id;
       grant(s, id, 1, "Purchase", tx);
-      s.balance -= p.price; s.used[id] = (s.used[id] || 0) + 1;
+      s.balance = w.balance; s.used[id] = (s.used[id] || 0) + 1;
       s.ledger.push({ id: tx, at: serverNow(), type: "Purchase", product_id: id, name: p.name, amount: -p.price, balance_after: s.balance });
       const res = { transaction_id: tx, balance: s.balance }; s.idem[key] = res; save(s); return res;
     },
@@ -84,7 +92,7 @@
       const e = s.ent[id]; if (!e || e.qty < 1) fail("NO_STOCK", "Kullanılacak adet yok.");
       e.qty -= 1; const res = { remaining: e.qty }; s.idem[key] = res; save(s); return res;
     },
-    async reset() { localStorage.removeItem(KEY); }
+    async reset() { localStorage.removeItem(KEY); WL.reset(); }
   };
 
   async function req(method, path, body, key) {

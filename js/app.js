@@ -5,7 +5,9 @@
   const fmtDate = (t) => new Date(t).toLocaleString("tr-TR", { dateStyle: "medium", timeStyle: "short" });
   let CAT = [], ME = { balance: 0, entitlements: {}, wishlist: [] }, PRODUCTS = [], EVENTS = [], state = { q: "", cat: "all", sort: "new" };
 
-  function art(p) { // ürün görseli yoksa kimliğe dayalı geometrik yer tutucu
+  function skinArt(p) { const d = { orientation: "landscape", layers: [{ id: "bg", type: "background", visible: true, locked: true, properties: { mode: "solid", colors: ["#000000"], angle: 0, finish: "matte", texture: "none" } }], userDisplayName: "PLAYER NAME", chipStyle: "gold" };
+    return window.FNXRender.cardSvg(d, { last4: "0000", cardToken: "NXC-DEMO-0000", skin: p.skin, skinSerial: "001/500" }, { prefix: "m" + p.skin + Math.random().toString(36).slice(2, 5) }).replace('class="card-svg"', 'class="art skin"'); }
+  function art(p) { if (p.skin) return skinArt(p); // ürün görseli yoksa kimliğe dayalı geometrik yer tutucu
     let h = 0; for (const c of p.id) h = (h * 31 + c.charCodeAt(0)) >>> 0;
     const n = 4 + (h % 4), shapes = [];
     for (let i = 0; i < n; i++) { const r = 18 + i * 14 + (h >> i) % 6, o = (0.9 - i * 0.14).toFixed(2);
@@ -26,7 +28,7 @@
   const owned = (p) => p.type === "permanent" && ME.entitlements[p.id];
 
   function action(p) {
-    if (owned(p)) return `<span class="tag">Zaten sende</span>`;
+    if (owned(p)) return p.skin ? `<span class="tag">Zaten sende</span> <a class="btn" href="${esc(C.BANK_URL)}/#/card">Bankada kartıma tak</a>` : `<span class="tag">Zaten sende</span>`;
     if (p.stock_left === 0) return `<span class="tag">Stok tükendi</span>`;
     if (p.acq.includes("Purchase")) return `<button class="btn" data-buy="${p.id}">Satın al</button>`;
     return `<a class="btn ghost" href="#/rewards">${p.acq.includes("Event") ? "Etkinliğe git" : "Ödülü al"}</a>`;
@@ -48,7 +50,8 @@
         <p class="lead">Sanal bakiyenle satın al, görevlerle ücretsiz kazan, süreli etkinliklere katıl.</p>
         <a class="btn" href="#/browse">Ürünlere göz at</a></div><a href="#/p/${feat.id}">${art(feat)}</a></section>
         <h2>Etkinlik vitrini</h2>${act.length ? `<div class="list">${act.map(evItem).join("")}</div>` : `<div class="empty">Şu an aktif etkinlik yok.</div>`}
-        <h2>Yeni gelenler</h2><div class="grid">${PRODUCTS.filter((p) => p.isNew).map(card).join("")}</div>
+        <h2>Hazır kart tasarımları</h2><p class="lead">FN ile satın al; bankada Kartım sayfasından karta tak.</p><div class="grid">${PRODUCTS.filter((p) => p.skin).map(card).join("")}</div>
+        <h2>Yeni gelenler</h2><div class="grid">${PRODUCTS.filter((p) => p.isNew && !p.skin).map(card).join("")}</div>
         <h2>Paketler</h2><div class="grid">${PRODUCTS.filter((p) => p.type === "bundle").map(card).join("")}</div>`;
     },
     async browse() {
@@ -97,7 +100,7 @@
   }
   function colCard(p) { const e = ME.entitlements[p.id];
     return `<article class="card"><a href="#/p/${p.id}">${art(p)}</a><div class="body"><h3>${esc(p.name)}</h3><span class="tag">${catName(p.cat)}</span>
-      <small>${SRC[e.source]} · ${fmtDate(e.acquired_at)}</small><div class="row"><b>${p.type === "consumable" ? e.qty + " adet" : "Sahipsin"}</b>${p.type === "consumable" ? `<button class="btn ghost" data-use="${p.id}" ${e.qty < 1 ? "disabled" : ""}>Kullan</button>` : ""}</div></div></article>`; }
+      <small>${SRC[e.source]} · ${fmtDate(e.acquired_at)}</small><div class="row"><b>${p.type === "consumable" ? e.qty + " adet" : "Sahipsin"}</b>${p.skin ? `<a class="btn ghost" href="${esc(C.BANK_URL)}/#/card">Karta tak</a>` : ""}${p.type === "consumable" ? `<button class="btn ghost" data-use="${p.id}" ${e.qty < 1 ? "disabled" : ""}>Kullan</button>` : ""}</div></div></article>`; }
 
   async function buy(id) {
     const p = PRODUCTS.find((x) => x.id === id), after = ME.balance - p.price;

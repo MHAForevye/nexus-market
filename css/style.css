@@ -54,3 +54,5 @@ dl{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;margin:16px 0}dt{col
 @media(max-width:720px){.hero,.detail{grid-template-columns:1fr}.grid{grid-template-columns:repeat(2,1fr);gap:10px}main{padding:16px 12px 70px}.top{padding:8px 12px}.card .body{padding:10px}}
 @media(max-width:360px){.grid{grid-template-columns:1fr 1fr}.bal small{display:none}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+.art.skin{height:auto;aspect-ratio:856/540;background:none}
