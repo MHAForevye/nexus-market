@@ -104,10 +104,26 @@
   async function req(method, path, body, allowNoToken) {
     const h = { "Content-Type": "application/json" };
     if (!allowNoToken && token) h.Authorization = "Bearer " + token;
-    const r = await fetch(apiBase + path, { method, headers: h, body: body === undefined ? undefined : JSON.stringify(body), credentials: "omit", cache: "no-store" });
+    const controller = new AbortController();
+    const timeoutMs = Number(C.REQUEST_TIMEOUT_MS) > 0 ? Number(C.REQUEST_TIMEOUT_MS) : 12000;
+    const timer = setTimeout(() => controller.abort(), timeoutMs);
+    let r;
+    try {
+      r = await fetch(apiBase + path, {
+        method, headers: h,
+        body: body === undefined ? undefined : JSON.stringify(body),
+        credentials: "omit", cache: "no-store", signal: controller.signal
+      });
+    } catch (err) {
+      if (controller.signal.aborted) fail("TIMEOUT", `Market sunucusu ${Math.round(timeoutMs / 1000)} saniye içinde yanıt vermedi (${path}). Yeniden deneyin.`);
+      fail("NETWORK_ERROR", `Market sunucusuna ulaşılamadı (${path}). İnternet, Worker adresi ve CORS ayarını kontrol edin.`);
+    } finally { clearTimeout(timer); }
     const date = r.headers.get("Date"); if (date) timeOffset = new Date(date).getTime() - Date.now();
     const j = await r.json().catch(() => ({}));
-    if (!r.ok) { const e = j.error || j; fail(e.code || "ERROR", e.message || "İşlem tamamlanamadı."); }
+    if (!r.ok) {
+      const e = j.error || j;
+      fail(e.code || `HTTP_${r.status}`, e.message || `Market sunucusu ${r.status} yanıtı verdi.`);
+    }
     return j;
   }
   const formatProduct = (p) => ({

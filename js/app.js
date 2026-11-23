@@ -24,7 +24,7 @@
       m.querySelector("[data-x='1']").focus(); });
   }
   const refreshMe = async () => { ME = await A.me(); $("#bal").innerHTML = `${ME.balance} ${C.CURRENCY} <small>bakiye</small>`; };
-  const skeleton = (n = 6) => `<div class="grid">${'<div class="sk"></div>'.repeat(n)}</div>`;
+  const skeleton = () => `<section class="market-loading" role="status"><span class="loader" aria-hidden="true"></span><b>Koleksiyon hazırlanıyor</b><small>Market sunucusundan tasarımlar ve hesap bilgileri alınıyor…</small></section>`;
   const owned = (p) => p.type === "permanent" && ME.entitlements[p.id];
 
   function action(p) {
@@ -176,18 +176,44 @@
   });
   document.addEventListener("input", (e) => { if (e.target.id === "q") { state.q = e.target.value; render().then(() => { const q = $("#q"); q.focus(); q.setSelectionRange(99, 99); }); } });
   document.addEventListener("change", (e) => { if (e.target.id === "sort") { state.sort = e.target.value; render().then(() => ($("#sort").value = state.sort)); } });
-  window.addEventListener("hashchange", async () => { app.innerHTML = skeleton(); await refreshMe(); await render(); app.focus(); scrollTo(0, 0); });
-  (async function init() {
+  let authenticated = false;
+  const nexusLoginUrl = () => C.NEXUS_LOGIN_URL || ((C.NEXUS_APP_URL || "https://forevye-nexus.forevyenexus.workers.dev").replace(/\/$/, "") + "/#/shop-launch");
+  function showLoginGate() {
+    authenticated = false;
+    $("#nav").hidden = true; $("#bal").hidden = true;
+    app.innerHTML = `<section class="market-login">
+      <div class="market-login-brand"><span class="mark" aria-hidden="true"></span><b>FOREVYE NEXUS</b><i>Market</i></div>
+      <span class="eyebrow">GÜVENLİ HESAP GİRİŞİ</span>
+      <h1>Koleksiyonuna giriş yap.</h1>
+      <p>Market hesabın FOREVYE NEXUS hesabınla ortaktır. FOREVYE ID veya Nexus e-posta/şifre girişini kullan; oturum açınca otomatik olarak bu mağazaya geri dönersin.</p>
+      <a class="btn market-login-button" href="${esc(nexusLoginUrl())}">Giriş yap / Hesap oluştur <span aria-hidden="true">↗</span></a>
+      <small>Şifren bu Market sitesinde istenmez. Güvenli giriş Nexus hesabında tamamlanır.</small>
+    </section>`;
+  }
+  function showLoadError(e) {
+    const code = e && e.code ? ` <small class="error-code">${esc(e.code)}</small>` : "";
+    app.innerHTML = `<section class="market-error"><span class="eyebrow">BAĞLANTI SORUNU</span><h1>Market şu an açılamadı.</h1><p>${esc(e && e.message || "Bilinmeyen bağlantı hatası.")}</p>${code}<div class="market-error-actions"><button class="btn" data-retry-market>Yeniden dene</button><a class="btn ghost" href="${esc(nexusLoginUrl())}">Hesabını yeniden bağla</a></div></section>`;
+  }
+  async function startMarket() {
     app.innerHTML = skeleton();
     try {
       const session = await A.boot();
-      if (!session.authenticated) {
-        app.innerHTML = `<section class="empty market-gate"><h1>Nexus hesabınla devam et</h1><p>Market'e yalnızca Nexus üzerinden açılan güvenli, tek kullanımlık biletle erişebilirsin.</p><a class="btn" href="${esc(C.NEXUS_APP_URL || "https://forevye-nexus.forevyenexus.workers.dev")}">Nexus'a dön ve giriş yap</a></section>`;
-        return;
-      }
+      if (!session.authenticated) { showLoginGate(); return; }
+      authenticated = true; $("#nav").hidden = false; $("#bal").hidden = false;
       const c = await A.catalog(); CAT = c.categories; EVENTS = c.events; PRODUCTS = await A.products(); await refreshMe();
       if (session.productId) location.hash = "#/p/" + encodeURIComponent(session.productId);
       await render();
-    } catch (e) { app.innerHTML = `<div class="empty">Market yüklenemedi: ${esc(e.message)} <p><a href="${esc(C.NEXUS_APP_URL || "https://forevye-nexus.forevyenexus.workers.dev")}">Nexus'a dön</a></p></div>`; }
-  })();
+    } catch (e) { showLoadError(e); }
+  }
+  window.addEventListener("hashchange", async () => {
+    if (!authenticated) return;
+    app.innerHTML = skeleton();
+    try { await refreshMe(); await render(); app.focus(); scrollTo(0, 0); }
+    catch (e) { showLoadError(e); }
+  });
+  document.addEventListener("click", (e) => {
+    const retry = e.target.closest("[data-retry-market]");
+    if (retry) startMarket();
+  });
+  startMarket();
 })();

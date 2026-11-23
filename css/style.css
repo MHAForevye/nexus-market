@@ -6,9 +6,9 @@ a{color:inherit;text-decoration:none}button{font:inherit;color:inherit;cursor:po
 :focus-visible{outline:2px solid var(--white);outline-offset:2px}
 .skip{position:absolute;left:-999px}.skip:focus{left:8px;top:8px;background:var(--white);color:#000;padding:8px;z-index:9}
 .top{position:sticky;top:0;z-index:5;display:flex;flex-wrap:wrap;align-items:center;gap:8px 20px;padding:10px 20px;background:rgba(13,14,16,.94);border-bottom:1px solid var(--line)}
-.brand{display:flex;align-items:center;gap:10px}.brand i{font-style:normal;color:var(--mute);font-weight:500}
+.brand{display:flex;align-items:center;gap:10px;min-width:max-content}.brand b{font-size:13px;font-weight:800;letter-spacing:.22em;color:#f3f3f4}.brand i{font-style:normal;color:var(--mute);font-weight:600;font-size:12px;letter-spacing:.12em;text-transform:uppercase;border-left:1px solid var(--line);padding-left:12px}
 .mark{width:18px;height:18px;border:1.5px solid var(--silver);clip-path:polygon(0 0,70% 0,100% 30%,100% 100%,0 100%);display:inline-block}
-nav{display:flex;gap:2px;overflow-x:auto;flex:1;min-width:0;scrollbar-width:none}
+nav{display:flex;gap:2px;overflow-x:auto;flex:1;min-width:0;scrollbar-width:none}nav[hidden],.bal[hidden]{display:none!important}.bal:empty{display:none}
 nav a{padding:8px 12px;color:var(--mute);white-space:nowrap;border-bottom:2px solid transparent}
 nav a:hover{color:var(--white)}nav a.on{color:var(--white);border-color:var(--silver)}
 .bal{border:1px solid var(--line);padding:6px 12px;font-weight:700;white-space:nowrap}.bal small{color:var(--mute);font-weight:500}
@@ -73,3 +73,10 @@ dl{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;margin:16px 0}dt{col
 .stockline b{color:#e9d5a1}.btn:hover{filter:brightness(.91)}.card:hover .art{filter:brightness(1.07)}
 @media(max-width:860px){.hero{grid-template-columns:1fr}.hero-art{max-width:620px}.catalog-intro{align-items:flex-start;flex-direction:column}.collection-banner{align-items:flex-start;flex-direction:column}}
 @media(max-width:560px){.brand img{width:124px}.brand{gap:8px}.brand i{padding-left:8px}.hero{padding:20px}.hero-stats{gap:18px}.card-actions .btn{flex:1 1 100%}.market-footer{align-items:flex-start;flex-direction:column}.hero-art{padding:14px}.catalog-intro{margin-top:32px}}
+
+/* Original FOREVYE NEXUS / Market lockup and branded sign-in return flow. */
+.market-login,.market-error{max-width:680px;margin:clamp(44px,9vh,100px) auto;padding:clamp(26px,5vw,54px);border:1px solid #3d3b34;background:radial-gradient(circle at 86% 9%,rgba(211,171,98,.13),transparent 34%),linear-gradient(145deg,#181816,#0d0e10);text-align:left;box-shadow:0 28px 80px rgba(0,0,0,.28)}
+.market-login-brand{display:flex;align-items:center;gap:12px;margin-bottom:42px}.market-login-brand .mark{width:28px;height:28px;border-color:#d8ad67}.market-login-brand b{font-size:15px;letter-spacing:.22em}.market-login-brand i{font-style:normal;color:#d8ad67;font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;border-left:1px solid var(--line);padding-left:12px}
+.market-login .eyebrow,.market-error .eyebrow{color:#d8b77c;font-size:10px;letter-spacing:.22em;font-weight:800}.market-login h1,.market-error h1{font-family:Georgia,serif;font-size:clamp(32px,5vw,48px);font-weight:600;letter-spacing:-.03em;margin:10px 0 14px}.market-login p,.market-error p{max-width:56ch;color:#c5c2b8;line-height:1.8;margin:0 0 24px}.market-login-button{display:inline-flex;align-items:center;gap:24px;min-width:260px;justify-content:space-between;background:#d8ad67;color:#17120b}.market-login>small{display:block;color:var(--mute);margin-top:18px;font-size:12px}.market-error{border-color:#65473a}.market-error p{color:#e0a18b}.error-code{color:#d8b77c;font-size:11px;letter-spacing:.12em}.market-error-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+.market-loading{min-height:390px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:#ddd5c5;text-align:center}.market-loading small{color:var(--mute)}.loader{width:34px;height:34px;border:2px solid #39352d;border-top-color:#d8ad67;border-radius:50%;animation:market-spin .8s linear infinite}@keyframes market-spin{to{transform:rotate(360deg)}}
+@media(max-width:720px){.top{gap:8px 14px}.brand b{font-size:11px;letter-spacing:.14em}.brand i{padding-left:8px}.market-login-brand{margin-bottom:30px}.market-login-button{width:100%}.market-error-actions .btn{flex:1 1 100%;text-align:center}}
