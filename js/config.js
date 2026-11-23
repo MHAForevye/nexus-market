@@ -1,9 +1,7 @@
-// Sunucu bağlantısı: API_BASE boşsa tarayıcı içi MOCK mod çalışır (localStorage).
-// Sunucuya bağlanırken örn. "https://api.siteniz.com/market/v1" yazın.
+// Market, Banka ve Nexus aynı D1 mağaza/entitlement altyapısını kullanır.
 window.NEXUS_CONFIG = {
-  API_BASE: "",
+  API_BASE: "https://forevye-nexus.forevyenexus.workers.dev/api/shop",
   CURRENCY: "FN",
-  // Kart editörü (banka) adresi; satın alınan yüzeyler orada 'Kartım' sayfasında takılır. Sonunda / olmasın.
   BANK_URL: "https://mhaforevye.github.io/forevye_nexus_bank",
-  AUTH_TOKEN_KEY: "nexus_token" // gerçek modda localStorage'dan okunup Authorization: Bearer olarak gönderilir
+  NEXUS_APP_URL: "https://forevye-nexus.forevyenexus.workers.dev"
 };

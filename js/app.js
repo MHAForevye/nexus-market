@@ -6,7 +6,7 @@
   let CAT = [], ME = { balance: 0, entitlements: {}, wishlist: [] }, PRODUCTS = [], EVENTS = [], state = { q: "", cat: "all", sort: "new" };
 
   function skinArt(p) { const d = { orientation: "landscape", layers: [{ id: "bg", type: "background", visible: true, locked: true, properties: { mode: "solid", colors: ["#000000"], angle: 0, finish: "matte", texture: "none" } }], userDisplayName: "PLAYER NAME", chipStyle: "gold" };
-    return window.FNXRender.cardSvg(d, { last4: "0000", cardToken: "NXC-DEMO-0000", skin: p.skin, skinSerial: "001/500" }, { prefix: "m" + p.skin + Math.random().toString(36).slice(2, 5) }).replace('class="card-svg"', 'class="art skin"'); }
+    return window.FNXRender.cardSvg(d, { last4: "0000", cardToken: "NXC-DEMO-0000", skin: p.skin, skinSerial: "" }, { prefix: "m" + p.skin + Math.random().toString(36).slice(2, 5) }).replace('class="card-svg"', 'class="art skin"'); }
   function art(p) { if (p.skin) return skinArt(p); // ürün görseli yoksa kimliğe dayalı geometrik yer tutucu
     let h = 0; for (const c of p.id) h = (h * 31 + c.charCodeAt(0)) >>> 0;
     const n = 4 + (h % 4), shapes = [];
@@ -28,7 +28,7 @@
   const owned = (p) => p.type === "permanent" && ME.entitlements[p.id];
 
   function action(p) {
-    if (owned(p)) return p.skin ? `<span class="tag">Zaten sende</span> <a class="btn" href="${esc(C.BANK_URL)}/#/card">Bankada kartıma tak</a>` : `<span class="tag">Zaten sende</span>`;
+    if (owned(p)) return p.skin ? `<span class="tag">Zaten sende</span> <a class="btn" href="${esc(C.BANK_URL)}/">Banka editöründe kullan</a>` : `<span class="tag">Zaten sende</span>`;
     if (p.stock_left === 0) return `<span class="tag">Stok tükendi</span>`;
     if (p.acq.includes("Purchase")) return `<button class="btn" data-buy="${p.id}">Satın al</button>`;
     return `<a class="btn ghost" href="#/rewards">${p.acq.includes("Event") ? "Etkinliğe git" : "Ödülü al"}</a>`;
@@ -39,20 +39,20 @@
     return `<article class="card"><a href="#/p/${p.id}" aria-label="${esc(p.name)} detayı">${art(p)}</a>
       <button class="heart" data-wish="${p.id}" aria-pressed="${wl}" aria-label="İstek listesi: ${esc(p.name)}">${wl ? "♥" : "♡"}</button>
       <div class="body"><div class="row"><h3>${esc(p.name)}</h3>${p.isNew ? '<span class="tag hl">Yeni</span>' : ""}</div>
-      <p>${esc(p.desc)}</p><div class="row"><span class="tag">${TYPE[p.type]}${p.type === "consumable" && n ? " · " + n + " adet" : ""}</span>${priceTag(p)}</div></div></article>`;
+      <p>${esc(p.desc)}</p><div class="row"><span class="tag">${p.cat === "functions" ? "Fonksiyonel" : "Kart yüzeyi"}${p.type === "consumable" && n ? " · " + n + " adet" : ""}</span>${priceTag(p)}</div>
+      ${p.stock_left != null ? `<div class="stockline"><span>Sınırlı seri</span><b>${p.stock_left} / ${p.stock_total} kaldı</b></div>` : ""}</div></article>`;
   }
   const catName = (id) => (CAT.find((c) => c.id === id) || {}).name || id;
 
   const pages = {
     async home() {
-      const feat = PRODUCTS.find((p) => p.id === "p_col_orbit"), act = EVENTS.filter((e) => e.status === "active");
+      const feat = PRODUCTS.find((p) => p.skin) || PRODUCTS[0], act = EVENTS.filter((e) => e.status === "active");
       return `<section class="hero"><div><h1>Dijital ürünlerini keşfet, koleksiyonunu tamamla.</h1>
-        <p class="lead">Sanal bakiyenle satın al, görevlerle ücretsiz kazan, süreli etkinliklere katıl.</p>
-        <a class="btn" href="#/browse">Ürünlere göz at</a></div><a href="#/p/${feat.id}">${art(feat)}</a></section>
+        <p class="lead">FN bakiyenle satın al. Sınırlı sayıdaki özel kart yüzeyleri hesabına kalıcı olarak tanımlanır.</p>
+        <a class="btn" href="#/browse">Ürünlere göz at</a></div>${feat ? `<a href="#/p/${feat.id}">${art(feat)}</a>` : ""}</section>
         <h2>Etkinlik vitrini</h2>${act.length ? `<div class="list">${act.map(evItem).join("")}</div>` : `<div class="empty">Şu an aktif etkinlik yok.</div>`}
         <h2>Hazır kart tasarımları</h2><p class="lead">FN ile satın al; bankada Kartım sayfasından karta tak.</p><div class="grid">${PRODUCTS.filter((p) => p.skin).map(card).join("")}</div>
-        <h2>Yeni gelenler</h2><div class="grid">${PRODUCTS.filter((p) => p.isNew && !p.skin).map(card).join("")}</div>
-        <h2>Paketler</h2><div class="grid">${PRODUCTS.filter((p) => p.type === "bundle").map(card).join("")}</div>`;
+        <h2>Fonksiyonel kartlar</h2><div class="grid">${PRODUCTS.filter((p) => p.cat === "functions").map(card).join("")}</div>`;
     },
     async browse() {
       let l = PRODUCTS.filter((p) => (state.cat === "all" || p.cat === state.cat) && (p.name + p.desc).toLowerCase().includes(state.q.toLowerCase()));
@@ -68,10 +68,10 @@
       return `<p><a href="#/browse">‹ Ürünlere dön</a></p><div class="detail"><div>${art(p)}</div><div>
         <div class="row" style="justify-content:flex-start"><span class="tag">${catName(p.cat)}</span><span class="tag">${TYPE[p.type]}</span></div>
         <h1>${esc(p.name)}</h1><p class="lead">${esc(p.desc)}</p>
-        <dl><dt>Edinme</dt><dd>${p.acq.map((a) => SRC[a]).join(", ")}</dd><dt>Fiyat</dt><dd>${p.acq.includes("Purchase") ? p.price + " " + C.CURRENCY : "Ücretsiz (ödül/etkinlik)"}</dd>
-        <dt>Durum</dt><dd>${p.type === "permanent" ? (owned(p) ? "Zaten sende" : "Sahip değilsin") : p.type === "consumable" ? n + " adet sende" : "Pakette " + p.items.length + " ürün"}</dd>
-        ${p.stock_left != null ? `<dt>Stok</dt><dd>${p.stock_left} kaldı</dd>` : ""}${p.inventory.policy === "seasonal" ? "<dt>Erişim</dt><dd>Dönemsel</dd>" : ""}
-        <dt>Kullanım</dt><dd>${esc(p.usage)}</dd></dl>
+        <dl><dt>Edinme</dt><dd>Satın alma</dd><dt>Fiyat</dt><dd>${p.price.toLocaleString("tr-TR")} ${C.CURRENCY}</dd>
+        <dt>Durum</dt><dd>${owned(p) ? "Zaten sende" : "Sahip değilsin"}</dd>
+        ${p.stock_left != null ? `<dt>Sınırlı stok</dt><dd>${p.stock_left} / ${p.stock_total} adet kaldı</dd>` : ""}
+        <dt>Seri</dt><dd>${p.rarity || "Özel"}</dd><dt>Kullanım</dt><dd>${esc(p.usage)}</dd></dl>
         <div class="row" style="justify-content:flex-start">${action(p)}<button class="btn ghost" data-wish="${p.id}" aria-pressed="${wl}">${wl ? "Listeden çıkar" : "İstek listesine ekle"}</button></div></div></div>`;
     },
     async events() { const g = (s) => EVENTS.filter((e) => e.status === s);
@@ -91,7 +91,7 @@
     async wishlist() { const l = PRODUCTS.filter((p) => ME.wishlist.includes(p.id));
       return `<h1>İstek listesi</h1><p class="lead">Kaydettiğin ürünler sahiplik anlamına gelmez.</p>${l.length ? `<div class="grid">${l.map(card).join("")}</div>` : '<div class="empty">Listen boş. Ürün kartındaki kalbe dokunarak ekle.</div>'}`; },
     async history() { const L = await A.ledger();
-      return `<h1>Edinim geçmişi</h1>${L.length ? `<div class="list">${L.map((t) => `<div class="item"><div><h3>${esc(t.name)}</h3><small>${SRC[t.type]} · ${fmtDate(t.at)} · ${esc(t.id)}</small></div><div><b>${t.amount ? t.amount + " " + C.CURRENCY : "Ücretsiz"}</b><br><small>Kalan: ${t.balance_after} ${C.CURRENCY}</small></div></div>`).join("")}</div>` : '<div class="empty">Henüz işlem yok.</div>'}
+      return `<h1>Edinim geçmişi</h1>${L.length ? `<div class="list">${L.map((t) => `<div class="item"><div><h3>${esc(t.name)}</h3><small>${SRC[t.type]} · ${fmtDate(t.at)} · ${esc(t.id)}</small></div><div><b>${t.amount ? t.amount + " " + C.CURRENCY : "Ücretsiz"}</b>${t.balance_after != null ? `<br><small>Kalan: ${t.balance_after} ${C.CURRENCY}</small>` : ""}</div></div>`).join("")}</div>` : '<div class="empty">Henüz işlem yok.</div>'}
         ${A.mode === "mock" ? '<p class="note">Demo modu: veriler bu tarayıcıda tutulur. <button class="btn ghost" data-reset>Demoyu sıfırla</button></p>' : ""}`; }
   };
   function evItem(e) {
@@ -100,7 +100,7 @@
   }
   function colCard(p) { const e = ME.entitlements[p.id];
     return `<article class="card"><a href="#/p/${p.id}">${art(p)}</a><div class="body"><h3>${esc(p.name)}</h3><span class="tag">${catName(p.cat)}</span>
-      <small>${SRC[e.source]} · ${fmtDate(e.acquired_at)}</small><div class="row"><b>${p.type === "consumable" ? e.qty + " adet" : "Sahipsin"}</b>${p.skin ? `<a class="btn ghost" href="${esc(C.BANK_URL)}/#/card">Karta tak</a>` : ""}${p.type === "consumable" ? `<button class="btn ghost" data-use="${p.id}" ${e.qty < 1 ? "disabled" : ""}>Kullan</button>` : ""}</div></div></article>`; }
+      <small>${SRC[e.source]} · ${fmtDate(e.acquired_at)}${e.serial ? " · Seri " + esc(e.serial) : ""}</small><div class="row"><b>Sahipsin</b>${p.skin ? `<a class="btn ghost" href="${esc(C.BANK_URL)}/">Banka editöründe kullan</a>` : ""}</div></div></article>`; }
 
   async function buy(id) {
     const p = PRODUCTS.find((x) => x.id === id), after = ME.balance - p.price;
@@ -132,7 +132,15 @@
   window.addEventListener("hashchange", async () => { app.innerHTML = skeleton(); await refreshMe(); await render(); app.focus(); scrollTo(0, 0); });
   (async function init() {
     app.innerHTML = skeleton();
-    try { const c = await A.catalog(); CAT = c.categories; EVENTS = c.events; PRODUCTS = await A.products(); await refreshMe(); await render(); }
-    catch (e) { app.innerHTML = `<div class="empty">Market yüklenemedi: ${esc(e.message)}</div>`; }
+    try {
+      const session = await A.boot();
+      if (!session.authenticated) {
+        app.innerHTML = `<section class="empty market-gate"><h1>Nexus hesabınla devam et</h1><p>Market'e yalnızca Nexus üzerinden açılan güvenli, tek kullanımlık biletle erişebilirsin.</p><a class="btn" href="${esc(C.NEXUS_APP_URL || "https://forevye-nexus.forevyenexus.workers.dev")}">Nexus'a dön ve giriş yap</a></section>`;
+        return;
+      }
+      const c = await A.catalog(); CAT = c.categories; EVENTS = c.events; PRODUCTS = await A.products(); await refreshMe();
+      if (session.productId) location.hash = "#/p/" + encodeURIComponent(session.productId);
+      await render();
+    } catch (e) { app.innerHTML = `<div class="empty">Market yüklenemedi: ${esc(e.message)} <p><a href="${esc(C.NEXUS_APP_URL || "https://forevye-nexus.forevyenexus.workers.dev")}">Nexus'a dön</a></p></div>`; }
   })();
 })();

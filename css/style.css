@@ -56,3 +56,6 @@ dl{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;margin:16px 0}dt{col
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
 .art.skin{height:auto;aspect-ratio:856/540;background:none}
+
+.stockline{display:flex;justify-content:space-between;gap:8px;margin-top:8px;padding-top:8px;border-top:1px solid var(--line);font-size:11px;color:var(--mute)}
+.stockline b{color:var(--silver);font-variant-numeric:tabular-nums}.market-gate{max-width:620px;margin:70px auto;padding:42px 24px}.market-gate h1{margin-bottom:14px}.market-gate p{color:var(--mute);margin:0 0 22px}

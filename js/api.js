@@ -95,20 +95,72 @@
     async reset() { localStorage.removeItem(KEY); WL.reset(); }
   };
 
-  async function req(method, path, body, key) {
-    const h = { "Content-Type": "application/json" }, tok = localStorage.getItem(C.AUTH_TOKEN_KEY);
-    if (tok) h.Authorization = "Bearer " + tok; if (key) h["Idempotency-Key"] = key;
-    const r = await fetch(C.API_BASE + path, { method, headers: h, body: body ? JSON.stringify(body) : undefined });
+  const SESSION_KEY = "nexus_market_session_v1";
+  const apiBase = String(C.API_BASE || "").replace(/\/+$/, "");
+  let token = "", deepProductId = "";
+  const getToken = () => { try { return sessionStorage.getItem(SESSION_KEY) || ""; } catch (_) { return ""; } };
+  const setToken = (v) => { token = v || ""; try { if (token) sessionStorage.setItem(SESSION_KEY, token); else sessionStorage.removeItem(SESSION_KEY); } catch (_) {} };
+
+  async function req(method, path, body, allowNoToken) {
+    const h = { "Content-Type": "application/json" };
+    if (!allowNoToken && token) h.Authorization = "Bearer " + token;
+    const r = await fetch(apiBase + path, { method, headers: h, body: body === undefined ? undefined : JSON.stringify(body), credentials: "omit", cache: "no-store" });
     const date = r.headers.get("Date"); if (date) timeOffset = new Date(date).getTime() - Date.now();
-    const j = await r.json().catch(() => ({})); if (!r.ok) fail(j.code || "ERROR", j.message || "İşlem tamamlanamadı.");
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) { const e = j.error || j; fail(e.code || "ERROR", e.message || "İşlem tamamlanamadı."); }
     return j;
   }
+  const formatProduct = (p) => ({
+    id: p.id, type: "permanent", cat: p.kind === "function" ? "functions" : "designs",
+    name: p.name, tagline: p.tagline, desc: p.desc || "", price: Number(p.price || 0) / 100, price_minor: Number(p.price || 0),
+    skin: p.skin || null, rarity: p.rarity, isNew: !!p.is_new, acq: ["Purchase"],
+    stock_left: p.stock_left == null ? null : Number(p.stock_left), stock_total: p.stock_total == null ? null : Number(p.stock_total),
+    inventory: { policy: p.stock_total == null ? "unlimited" : "limited", total: p.stock_total == null ? null : Number(p.stock_total) },
+    usage: p.perks ? Object.entries(p.perks).map(([k,v]) => k + ": " + v).join(" · ") : (p.skin ? "Kart editöründe kullanılır; satın alındıktan sonra kalıcıdır." : "Hesap avantajı sağlar."),
+    perks: p.perks || null, max_qty: p.max_qty || 1
+  });
+  function entitlementMap(rows) {
+    const out = {};
+    (Array.isArray(rows) ? rows : []).forEach(e => { out[e.product_id] = { qty: e.qty, acquired_at: e.acquired_at, source: "Purchase", transaction_id: e.tx_ref, serial: e.serial }; });
+    return out;
+  }
   const real = {
-    catalog: () => req("GET", "/catalog"), products: () => req("GET", "/products"), product: (id) => req("GET", "/products/" + id),
-    me: () => req("GET", "/me"), ledger: () => req("GET", "/me/ledger"), wishlistToggle: (id) => req("POST", "/me/wishlist/" + id + "/toggle"),
-    purchase: (id, k) => req("POST", "/products/" + id + "/purchase", {}, k), rewards: () => req("GET", "/rewards"),
-    claim: (id) => req("POST", "/rewards/" + id + "/claim"), consume: (id, k) => req("POST", "/me/entitlements/" + id + "/consume", {}, k),
-    advance: async () => {}, reset: async () => {}
+    async boot() {
+      deepProductId = new URLSearchParams(location.search).get("product_id") || "";
+      const ticketMatch = /(?:^|[#&])t=([A-Za-z0-9_-]{20,80})/.exec(location.hash || "");
+      const ticket = ticketMatch && ticketMatch[1];
+      if (ticket) {
+        history.replaceState(null, "", location.pathname + (deepProductId ? "?product_id=" + encodeURIComponent(deepProductId) : ""));
+        const r = await req("POST", "/exchange", { ticket }, true);
+        if (!r.token) fail("INVALID_TICKET", "Nexus Market bileti geçersiz.");
+        setToken(r.token);
+      } else setToken(getToken());
+      if (!token) return { authenticated: false, productId: deepProductId };
+      try { await req("GET", "/me"); }
+      catch (e) { if (e.code === "shop_token" || e.code === "UNAUTHORIZED") { setToken(""); return { authenticated: false, productId: deepProductId }; } throw e; }
+      return { authenticated: true, productId: deepProductId };
+    },
+    async catalog() { return { categories: [{ id: "designs", name: "Kart tasarımları" }, { id: "functions", name: "Fonksiyonel kartlar" }], events: [] }; },
+    async products() { const r = await req("GET", "/products"); return (r.products || []).map(formatProduct); },
+    async product(id) { const r = await req("GET", "/product?id=" + encodeURIComponent(id)); return r.product ? formatProduct(r.product) : fail("NOT_FOUND", "Ürün bulunamadı."); },
+    async me() { const r = await req("GET", "/me"); return { balance: Number(r.balance || 0) / 100, entitlements: entitlementMap(r.entitlements), wishlist: r.wishlist || [], user: r.user, perks: r.perks, limits: r.limits, cards: r.cards || [] }; },
+    async ledger() { const r = await req("GET", "/purchases?page=0&size=30"); return (r.items || []).map(x => ({ id: x.id, at: x.at, type: "Purchase", product_id: x.product_id, name: x.name, amount: -Number(x.price || 0) / 100, balance_after: null, serial: x.serial, status: x.status })); },
+    async wishlistToggle(id) { const r = await req("POST", "/wishlist", { pid: id }); return r.wishlist || []; },
+    async purchase(id, key) {
+      const r = await req("POST", "/purchase", { pid: id, idem: key });
+      if (r.ok === false) {
+        const messages = { sold_out: ["SOLD_OUT", "Bu tasarımın sınırlı stoğu tükendi."], insufficient: ["INSUFFICIENT_BALANCE", "FN bakiyen yetersiz."], already_owned: ["ALREADY_OWNED", "Bu ürüne zaten sahipsin."], unavailable: ["UNAVAILABLE", "Ürün şu anda satışta değil."] };
+        const m = messages[r.code] || [String(r.code || "ERROR").toUpperCase(), "Satın alma tamamlanamadı."];
+        fail(m[0], m[1]);
+      }
+      return { transaction_id: r.purchase && r.purchase.id, balance: Number(r.balance || 0) / 100, purchase: r.purchase, entitlement: r.entitlement };
+    },
+    async rewards() { return []; },
+    async advance() { fail("UNSUPPORTED", "Görev ilerlemesi bu mağaza sürümünde etkin değil."); },
+    async claim() { fail("UNSUPPORTED", "Ödül kazanımı bu mağaza sürümünde etkin değil."); },
+    async consume() { fail("UNSUPPORTED", "Bu ürün tüketilebilir değil."); },
+    async reset() { setToken(""); },
+    get deepProductId() { return deepProductId; }
   };
-  window.API = { ...(C.API_BASE ? real : mock), mode: C.API_BASE ? "real" : "mock", serverNow, uid, evStatus };
+  window.API = { ...(C.API_BASE ? real : mock), mode: C.API_BASE ? "real" : "mock", serverNow, uid, evStatus, boot: C.API_BASE ? real.boot : async () => ({ authenticated: true }) };
 })();
