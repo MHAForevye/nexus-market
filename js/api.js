@@ -169,7 +169,7 @@
         const m = messages[r.code] || [String(r.code || "ERROR").toUpperCase(), "Satın alma tamamlanamadı."];
         fail(m[0], m[1]);
       }
-      return { transaction_id: r.purchase && r.purchase.id, balance: Number(r.balance || 0) / 100, purchase: r.purchase, entitlement: r.entitlement, payment: r.payment || { method: 'wallet' } };
+      return { transaction_id: r.purchase && r.purchase.id, balance: Number(r.balance || 0) / 100, purchase: r.purchase, entitlement: r.entitlement, delivery: r.delivery || null, payment: r.payment || { method: 'wallet' } };
     },
     async rewards() { return []; },
     async advance() { fail("UNSUPPORTED", "Görev ilerlemesi bu mağaza sürümünde etkin değil."); },

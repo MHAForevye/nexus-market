@@ -17,7 +17,7 @@ python3 -m http.server 8080   # sonra http://localhost:8080
 - **Gerçek:** `API_BASE` değerine sunucu adresini yazın. UI aynı kalır, `js/api.js` istekleri `docs/API.md` sözleşmesine göre gönderir.
 
 ## Kart tasarımları (FN)
-Para birimi FN. `data/products.json` içindeki **Hazır kart tasarımları** kategorisi 6 yüzey satar (Neon Izgara, Zümrüt Saray, Gün Batımı, Buz Kristali, Kızıl Gece, Kozmos). Ürün kartları `js/card/*` (bankayla aynı dosyalar: `rules.js`, `render.js`, `skins.js`, `wallet.js`) ile çizilir. Satın alınan yüzey ortak FN cüzdanına yazılır ve bankada **Kartım → Kart yüzeylerim** bölümünden takılır. `config.js` → `BANK_URL` bankanın adresi olmalı.
+Para birimi FN'dir ve gerçek katalog/sahiplik Nexus Worker üzerinden gelir. Kart çizimleri `js/card/*` içindeki ortak kurallarla yapılır. **Fonksiyonel kart** satın alındığında Worker gerçek bir banka kartı oluşturur, satın alınan yüzeyi otomatik takar ve Market doğrudan `NEXUS_APP_URL/#/cards/<kart-id>` adresindeki tam banka arayüzüne yönlendirir. Daha önce satın alınmış fakat karta dönüştürülmemiş fonksiyonel ürünler de banka kart listesi açıldığında otomatik teslim edilir. Yalnızca tasarım/yüzey ürünleri yeni kart oluşturmaz; sahip olunan yüzey olarak banka ekranında kullanılabilir.
 
 ## Yapı
 ```
@@ -35,5 +35,5 @@ Sayfalar: Market Home, Browse, Product Detail, Events, Rewards, My Collection, W
 
 ## Sonraki adımlar
 - Admin Studio Market modülü ve gerçek backend (Aşama 6) bu repoda yoktur; `docs/API.md` sözleşmesine göre ayrı geliştirilir.
-- Kimlik doğrulama: gerçek modda token `localStorage["nexus_token"]` üzerinden `Authorization: Bearer` ile gönderilir.
+- Kimlik doğrulama: gerçek modda Nexus tek kullanımlık giriş bileti Market jetonuna çevrilir; jeton yalnızca `/api/shop/*` uçlarında kullanılır.
 - Gerçek para, ödeme kartı veya banka verisi bu projede bulunmaz.

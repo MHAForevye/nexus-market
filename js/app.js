@@ -26,9 +26,13 @@
   const refreshMe = async () => { ME = await A.me(); $("#bal").innerHTML = `${ME.balance} ${C.CURRENCY} <small>bakiye</small>`; };
   const skeleton = () => `<section class="market-loading" role="status"><span class="loader" aria-hidden="true"></span><b>Koleksiyon hazırlanıyor</b><small>Market sunucusundan tasarımlar ve hesap bilgileri alınıyor…</small></section>`;
   const owned = (p) => p.type === "permanent" && ME.entitlements[p.id];
+  const bankAppUrl = () => String(C.NEXUS_APP_URL || "https://forevye-nexus.forevyenexus.workers.dev").replace(/\/+$/, "");
+  const bankCardsUrl = (id) => bankAppUrl() + "/#/cards" + (id ? "/" + encodeURIComponent(id) : "");
+  const deliveredCardFor = (p) => (ME.cards || []).find((c) => c.skin && c.skin.product_id === p.id);
+  const bankLinkFor = (p, label) => `<a class="btn" href="${esc(bankCardsUrl(deliveredCardFor(p)?.id))}">${label}</a>`;
 
   function action(p) {
-    if (owned(p)) return p.skin ? `<span class="tag">Zaten sende</span> <a class="btn" href="${esc(C.BANK_URL)}/">Banka editöründe kullan</a>` : `<span class="tag">Zaten sende</span>`;
+    if (owned(p)) return p.skin ? `<span class="tag">Zaten sende</span> ${bankLinkFor(p, "Bankadaki kartı aç")}` : `<span class="tag">Zaten sende</span>`;
     if (p.stock_left === 0) return `<span class="tag">Stok tükendi</span>`;
     if (p.acq.includes("Purchase")) return `<button class="btn" data-buy="${p.id}">Satın al</button>`;
     return `<a class="btn ghost" href="#/rewards">${p.acq.includes("Event") ? "Etkinliğe git" : "Ödülü al"}</a>`;
@@ -41,7 +45,7 @@
       <div class="body"><div class="row"><h3>${esc(p.name)}</h3>${p.isNew ? '<span class="tag hl">Yeni</span>' : ""}</div>
       <p>${esc(p.desc)}</p><div class="row"><span class="tag">${p.cat === "functions" ? "Fonksiyonel" : "Premium kart yüzeyi"}${p.type === "consumable" && n ? " · " + n + " adet" : ""}</span>${priceTag(p)}</div>
       ${p.stock_left != null ? `<div class="stockline"><span>Sınırlı seri</span><b>${p.stock_left} / ${p.stock_total} kaldı</b></div>` : ""}
-      <div class="card-actions"><a class="btn ghost" href="#/p/${p.id}">Detayları gör</a>${owned(p) ? (p.skin ? `<a class="btn" href="${esc(C.BANK_URL)}/">Kartına tak</a>` : '<span class="tag">Koleksiyonunda</span>') : (p.stock_left === 0 ? '<span class="tag">Tükendi</span>' : (p.acq.includes("Purchase") ? `<button class="btn" data-buy="${p.id}">Satın al</button>` : ''))}</div></div></article>`;
+      <div class="card-actions"><a class="btn ghost" href="#/p/${p.id}">Detayları gör</a>${owned(p) ? (p.skin ? bankLinkFor(p, "Bankadaki kartı aç") : '<span class="tag">Koleksiyonunda</span>') : (p.stock_left === 0 ? '<span class="tag">Tükendi</span>' : (p.acq.includes("Purchase") ? `<button class="btn" data-buy="${p.id}">Satın al</button>` : ''))}</div></div></article>`;
   }
   const catName = (id) => (CAT.find((c) => c.id === id) || {}).name || id;
 
@@ -58,7 +62,7 @@
         <div class="hero-stats"><span><b>${designs.length}</b><small>özel tasarım</small></span><span><b>${designs.filter(p => p.stock_left != null).length}</b><small>sınırlı seri</small></span><span><b>01</b><small>ortak koleksiyon</small></span></div>
         <div class="hero-actions"><a class="btn" href="#/browse">Koleksiyonu keşfet</a><a class="btn ghost" href="#/collection">Koleksiyonum</a></div></div>
         ${feat ? `<a class="hero-art" href="#/p/${feat.id}" aria-label="${esc(feat.name)} koleksiyonunu keşfet"><span class="hero-art-label">ÖNE ÇIKAN TASARIM</span>${art(feat)}<strong>${esc(feat.name)}</strong><small>${esc(feat.tagline || feat.desc)}</small></a>` : ""}</section>
-        <section class="catalog-intro"><div><span class="eyebrow">THE COLLECTION</span><h2>Bir tasarımdan fazlası.</h2><p class="lead">Her yüzeyin kendi karakteri, üretim adedi ve koleksiyon değeri var. Satın aldığın tasarımlar hesabına kalıcı olarak eklenir; banka kart editöründe kullanırsın.</p></div><a class="text-link" href="#/browse">Tüm tasarımları gör ↗</a></section>
+        <section class="catalog-intro"><div><span class="eyebrow">THE COLLECTION</span><h2>Bir tasarımdan fazlası.</h2><p class="lead">Her yüzeyin kendi karakteri, üretim adedi ve koleksiyon değeri var. Fonksiyonel kart satın alımları doğrudan banka kartlarına eklenir; kart tasarlama ekranına girip çıkman gerekmez.</p></div><a class="text-link" href="#/browse">Tüm tasarımları gör ↗</a></section>
         <div class="grid featured-grid">${(featured.length ? featured : designs.slice(0,4)).map(card).join("")}</div>
         ${act.length ? `<h2>Etkinlik vitrini</h2><div class="list">${act.map(evItem).join("")}</div>` : ""}
         <section class="collection-banner"><div><span class="eyebrow">LIMITED OBJECTS</span><h2>Az üretildi. Sana özel.</h2><p>Numaralı seriler stok bitince yeniden üretilmez. Kalan adetleri ürün kartlarından takip et.</p></div><a class="btn" href="#/browse">Sınırlı serileri incele</a></section>
@@ -112,7 +116,7 @@
   }
   function colCard(p) { const e = ME.entitlements[p.id];
     return `<article class="card"><a href="#/p/${p.id}">${art(p)}</a><div class="body"><h3>${esc(p.name)}</h3><span class="tag">${catName(p.cat)}</span>
-      <small>${SRC[e.source]} · ${fmtDate(e.acquired_at)}${e.serial ? " · Seri " + esc(e.serial) : ""}</small><div class="row"><b>Sahipsin</b>${p.skin ? `<a class="btn ghost" href="${esc(C.BANK_URL)}/">Banka editöründe kullan</a>` : ""}</div></div></article>`; }
+      <small>${SRC[e.source]} · ${fmtDate(e.acquired_at)}${e.serial ? " · Seri " + esc(e.serial) : ""}</small><div class="row"><b>Sahipsin</b>${p.skin ? bankLinkFor(p, "Bankadaki kartı aç") : ""}</div></div></article>`; }
 
   function purchaseDialog(p) {
     return new Promise((resolve) => {
@@ -151,6 +155,12 @@
     if (!choice) return;
     try {
       const result = await A.purchase(id, A.uid("idem"), choice.cardId);
+      if (p.cat === "functions" && p.skin) {
+        const deliveredId = result.delivery?.card?.id || deliveredCardFor(p)?.id || "";
+        toast("Kartın bankaya eklendi. Banka kartın açılıyor…");
+        location.assign(bankCardsUrl(deliveredId));
+        return;
+      }
       toast(result.payment?.method === "card" ? `Satın alındı · ${result.payment.card_label || "Seçilen kart"} kartından ödendi` : "Satın alındı");
       await reload();
     } catch (e) { toast(e.message, true); await verify(); }
