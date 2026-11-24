@@ -37,3 +37,7 @@ Sayfalar: Market Home, Browse, Product Detail, Events, Rewards, My Collection, W
 - Admin Studio Market modülü ve gerçek backend (Aşama 6) bu repoda yoktur; `docs/API.md` sözleşmesine göre ayrı geliştirilir.
 - Kimlik doğrulama: gerçek modda Nexus tek kullanımlık giriş bileti Market jetonuna çevrilir; jeton yalnızca `/api/shop/*` uçlarında kullanılır.
 - Gerçek para, ödeme kartı veya banka verisi bu projede bulunmaz.
+
+## 280 kartlık sınırlı koleksiyon
+
+Market, `js/card/skins.js` içindeki 280 koleksiyon yüzeyini ve kaynak katalogdaki 14 koleksiyonu kullanır. Ürün kartları kendi yönünde (dikey/yatay) önizlenir; stok ve kullanıcı başına adet sınırı gerçek modda Worker tarafından belirlenir. Demo kataloğu da 280 ürünü içerir. Karakter/arma final varlıkları ve lisans notları ürün detayında açıkça işaretlenir; prosedürel SVG önizlemesi resmî arma veya karakter illüstrasyonu olarak sunulmaz.

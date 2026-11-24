@@ -39,6 +39,7 @@
     s.ent[pid] = cur ? { ...cur, qty: cur.qty + qty } : { qty, acquired_at: serverNow(), source, transaction_id: tx };
   }
   const mock = {
+    async bankReturn() { return req("POST", "/bank-ticket", {}); },
     async catalog() { await wait(); const d = await loadSeed(); return { categories: d.categories, events: d.events.map((e) => ({ ...e, status: evStatus(e) })) }; },
     async products() { await wait(); const d = await loadSeed(), s = load(); return d.products.filter((p) => p.status === "published").map((p) => view(p, s)); },
     async product(id) { return (await this.products()).find((p) => p.id === id) || fail("NOT_FOUND", "Ürün bulunamadı."); },
@@ -127,7 +128,7 @@
     return j;
   }
   const formatProduct = (p) => ({
-    id: p.id, type: "permanent", cat: p.kind === "function" ? "functions" : "designs",
+    id: p.id, type: "permanent", cat: p.collection_id || (p.kind === "function" ? "functions" : "designs"), collection: p.collection || null, collection_type: p.collection_type || null, orientation: p.orientation || "landscape", art_direction: p.art_direction || "", asset_status: p.asset_status || "",
     name: p.name, tagline: p.tagline, desc: p.desc || "", price: Number(p.price || 0) / 100, price_minor: Number(p.price || 0),
     skin: p.skin || null, rarity: p.rarity, isNew: !!p.is_new, acq: ["Purchase"],
     stock_left: p.stock_left == null ? null : Number(p.stock_left), stock_total: p.stock_total == null ? null : Number(p.stock_total),
@@ -156,7 +157,8 @@
       catch (e) { if (e.code === "shop_token" || e.code === "UNAUTHORIZED") { setToken(""); return { authenticated: false, productId: deepProductId }; } throw e; }
       return { authenticated: true, productId: deepProductId };
     },
-    async catalog() { return { categories: [{ id: "designs", name: "Kart tasarımları" }, { id: "functions", name: "Fonksiyonel kartlar" }], events: [] }; },
+    async bankReturn() { return req("POST", "/bank-ticket", {}); },
+    async catalog() { const cats = new Map(); (window.FNXSkins?.catalog || []).forEach(x => { if (x.collection && x.collectionId) cats.set(x.collectionId, x.collection); }); return { categories: [...Array.from(cats, ([id,name]) => ({id,name})), { id: "designs", name: "Diğer kart tasarımları" }, { id: "functions", name: "Fonksiyonel kartlar" }], events: [] }; },
     async products() { const r = await req("GET", "/products"); return (r.products || []).map(formatProduct); },
     async product(id) { const r = await req("GET", "/product?id=" + encodeURIComponent(id)); return r.product ? formatProduct(r.product) : fail("NOT_FOUND", "Ürün bulunamadı."); },
     async me() { const r = await req("GET", "/me"); return { balance: Number(r.balance || 0) / 100, entitlements: entitlementMap(r.entitlements), wishlist: r.wishlist || [], user: r.user, perks: r.perks, limits: r.limits, cards: r.cards || [] }; },
