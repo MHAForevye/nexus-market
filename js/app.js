@@ -207,7 +207,7 @@
     if (!choice) return;
     try {
       const result = await A.purchase(id, A.uid("idem"), choice.cardId);
-      if (p.cat === "functions" && p.skin) {
+      if (p.skin) {
         const deliveredId = result.delivery?.card?.id || deliveredCardFor(p)?.id || "";
         toast("Kartın bankaya eklendi. Banka kartın açılıyor…");
         location.assign(bankCardsUrl(deliveredId));

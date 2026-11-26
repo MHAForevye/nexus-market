@@ -17,7 +17,7 @@ python3 -m http.server 8080   # sonra http://localhost:8080
 - **Gerçek:** `API_BASE` değerine sunucu adresini yazın. UI aynı kalır, `js/api.js` istekleri `docs/API.md` sözleşmesine göre gönderir.
 
 ## Kart tasarımları (FN)
-Para birimi FN'dir ve gerçek katalog/sahiplik Nexus Worker üzerinden gelir. Kart çizimleri `js/card/*` içindeki ortak kurallarla yapılır. **Fonksiyonel kart** satın alındığında Worker gerçek bir banka kartı oluşturur, satın alınan yüzeyi otomatik takar ve Market doğrudan `NEXUS_APP_URL/#/cards/<kart-id>` adresindeki tam banka arayüzüne yönlendirir. Daha önce satın alınmış fakat karta dönüştürülmemiş fonksiyonel ürünler de banka kart listesi açıldığında otomatik teslim edilir. Yalnızca tasarım/yüzey ürünleri yeni kart oluşturmaz; sahip olunan yüzey olarak banka ekranında kullanılabilir.
+Para birimi FN'dir ve gerçek katalog/sahiplik Nexus Worker üzerinden gelir. Kart çizimleri `js/card/*` içindeki ortak kurallarla yapılır. Kart yüzeyi içeren her ürün (tasarım veya fonksiyonel kart) satın alındığında Worker gerçek bir banka kartı oluşturur, satın alınan yüzeyi otomatik takar ve Market doğrudan `NEXUS_APP_URL/#/cards/<kart-id>` adresindeki banka kartına yönlendirir. Daha önce satın alınmış fakat karta dönüştürülmemiş tasarım/fonksiyon ürünleri de banka kart listesi açıldığında otomatik teslim edilir. Kartlarım ekranından her kart kart editöründe düzenlenebilir.
 
 ## Yapı
 ```
