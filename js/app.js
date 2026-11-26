@@ -32,9 +32,17 @@
   const fmtFN = (minor) => (Number(minor || 0) / 100).toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   function communityArt(card, suffix) {
     try {
-      const svg = window.FNXRender.cardSvg(card.design, { last4: '0000', cardToken: 'NXC-DEMO-0000' }, { prefix: 'cm' + String(suffix).replace(/[^a-z0-9]/gi, '').slice(0, 16) });
+      // API response and older cached payloads may carry design at different nesting levels.
+      let d = card && (card.design || card.card && card.card.design);
+      if (typeof d === 'string') d = JSON.parse(d);
+      if (!d || !Array.isArray(d.layers)) throw new Error('design missing');
+      if (!window.FNXRender || typeof window.FNXRender.cardSvg !== 'function') throw new Error('renderer missing');
+      const svg = window.FNXRender.cardSvg(d, { last4: '0000', cardToken: 'NXC-DEMO-0000' }, { prefix: 'cm' + String(suffix).replace(/[^a-z0-9]/gi, '').slice(0, 16) });
       return svg.replace('class="card-svg"', 'class="art community-art"');
-    } catch (_) { return '<div class="art community-art-fallback" aria-label="Kart önizlemesi"></div>'; }
+    } catch (_) {
+      // Keep a visible, useful fallback rather than an empty art region.
+      return '<svg class="art community-art-fallback" viewBox="0 0 360 220" role="img" aria-label="Kart önizlemesi"><defs><linearGradient id="cmfb" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#18243b"/><stop offset=".55" stop-color="#8b673a"/><stop offset="1" stop-color="#10141c"/></linearGradient></defs><rect x="4" y="4" width="352" height="212" rx="24" fill="url(#cmfb)"/><rect x="17" y="17" width="326" height="186" rx="18" fill="none" stroke="#d8b36a" stroke-opacity=".8"/><path d="M180 34 260 110 180 186 100 110Z M180 58 236 110 180 162 124 110Z" fill="none" stroke="#d8b36a" stroke-opacity=".65" stroke-width="2"/><circle cx="180" cy="110" r="46" fill="none" stroke="#f3e7ca" stroke-opacity=".65"/></svg>';
+    }
   }
   function skinArt(p) { const d = { orientation: p.orientation === "portrait" ? "portrait" : "landscape", layers: [{ id: "bg", type: "background", visible: true, locked: true, properties: { mode: "solid", colors: ["#000000"], angle: 0, finish: "matte", texture: "none" } }], userDisplayName: "PLAYER NAME", chipStyle: "gold" };
     return window.FNXRender.cardSvg(d, { last4: "0000", cardToken: "NXC-DEMO-0000", skin: p.skin, skinSerial: "" }, { prefix: "m" + p.skin + Math.random().toString(36).slice(2, 5) }).replace('class="card-svg"', 'class="art skin ' + rarityClass(p) + '-art" data-card-id="' + esc(p.id) + '" data-orientation="' + (p.orientation === "portrait" ? "portrait" : "landscape") + '"'); }
