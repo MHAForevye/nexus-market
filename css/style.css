@@ -206,3 +206,19 @@ dl{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;margin:16px 0}dt{col
 @media(max-width:900px){.nx-gallery-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
 @media(max-width:640px){.nx-gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.nx-progress-list{grid-template-columns:1fr}.nx-completion{align-items:flex-start;flex-direction:column;gap:12px}.nx-completion-copy{width:100%}.nx-collection-progress{padding:15px}.nx-gallery-card>div{padding:8px}.nx-gallery-card>div>b{font-size:10px}.nx-reveal-scene{min-height:75vh}}
 @media(prefers-reduced-motion:reduce){.card.rarity-mythic::after,.detail-visual.rarity-mythic .nx-flip-front::after,.nx-reveal-scene::before,.nx-reveal-scene::after,.nx-reveal-orbit,.nx-reveal-card{animation:none!important}.nx-gallery-card{transition:none!important}}
+
+/* Nexus Topluluk Pazarı — kullanıcı kartı ilanları */
+.community-head{margin:2rem 0 1.5rem;padding:clamp(1.25rem,3vw,2.4rem);border:1px solid var(--line);border-radius:24px;background:linear-gradient(135deg,rgba(177,147,91,.09),rgba(255,255,255,.025));}
+.community-head h1{margin:.4rem 0;font-size:clamp(2rem,5vw,3.5rem);letter-spacing:-.045em}
+.community-fee{display:flex;flex-wrap:wrap;gap:.5rem 1rem;align-items:center;margin-top:1.25rem;padding:1rem;border:1px solid var(--line);border-radius:14px;background:rgba(0,0,0,.14)}
+.community-fee b{color:var(--gold,#d7b875)}.community-fee span{color:var(--muted);font-size:.9rem}
+.community-grid,.community-sell-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,265px),1fr));gap:1rem;margin:1.2rem 0 2rem}
+.community-card,.community-sell-card{overflow:hidden;border:1px solid var(--line);border-radius:20px;background:var(--panel,rgba(255,255,255,.035));min-width:0}
+.community-card-art{display:grid;place-items:center;min-height:190px;padding:1.15rem;background:radial-gradient(ellipse at 50% 25%,rgba(190,165,115,.12),transparent 65%),rgba(0,0,0,.12)}
+.community-card-art .art{display:block;width:min(100%,350px);height:auto;max-height:220px;filter:drop-shadow(0 16px 22px rgba(0,0,0,.24))}
+.community-card-body{padding:1rem;display:grid;gap:.55rem}.community-card-body h3{margin:.2rem 0}.community-card-body p{margin:0;color:var(--muted);min-height:2.5em}.community-seller{font-size:.82rem;color:var(--muted)}
+.community-buy-row{display:flex;align-items:center;justify-content:space-between;gap:.8rem;padding-top:.5rem;border-top:1px solid var(--line)}
+.community-buy-row>b{font-size:1.1rem}.community-owned-listings{margin:1rem 0 2rem}
+.community-sell-card .field{display:grid;gap:.35rem}.community-sell-card input,.community-sell-card textarea{width:100%;min-width:0;padding:.72rem .8rem;border:1px solid var(--line);border-radius:10px;color:inherit;background:rgba(0,0,0,.18);font:inherit}.community-sell-card textarea{resize:vertical}.community-net{margin:0;color:var(--muted);font-size:.86rem}
+.community-art-fallback{width:min(100%,350px);height:170px;border-radius:18px;background:linear-gradient(145deg,#202530,#746044 50%,#15171d);}
+@media(max-width:620px){.community-head{margin-top:1rem}.community-card-art{min-height:160px}.community-card-body{padding:.85rem}}

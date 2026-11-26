@@ -29,6 +29,13 @@
     ["basketball-supporters-international", "Global Courts"], ["anatolian-turkish-rug-motifs", "Anatolian Geometries"]
   ];
 
+  const fmtFN = (minor) => (Number(minor || 0) / 100).toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  function communityArt(card, suffix) {
+    try {
+      const svg = window.FNXRender.cardSvg(card.design, { last4: '0000', cardToken: 'NXC-DEMO-0000' }, { prefix: 'cm' + String(suffix).replace(/[^a-z0-9]/gi, '').slice(0, 16) });
+      return svg.replace('class="card-svg"', 'class="art community-art"');
+    } catch (_) { return '<div class="art community-art-fallback" aria-label="Kart önizlemesi"></div>'; }
+  }
   function skinArt(p) { const d = { orientation: p.orientation === "portrait" ? "portrait" : "landscape", layers: [{ id: "bg", type: "background", visible: true, locked: true, properties: { mode: "solid", colors: ["#000000"], angle: 0, finish: "matte", texture: "none" } }], userDisplayName: "PLAYER NAME", chipStyle: "gold" };
     return window.FNXRender.cardSvg(d, { last4: "0000", cardToken: "NXC-DEMO-0000", skin: p.skin, skinSerial: "" }, { prefix: "m" + p.skin + Math.random().toString(36).slice(2, 5) }).replace('class="card-svg"', 'class="art skin ' + rarityClass(p) + '-art" data-card-id="' + esc(p.id) + '" data-orientation="' + (p.orientation === "portrait" ? "portrait" : "landscape") + '"'); }
   function cardReverse(p) {
@@ -156,6 +163,22 @@
       }).join("");
       return `<section class="nx-collection-head"><span class="eyebrow">THE 280 MASTER GALLERY</span><h1>Koleksiyon arşivin.</h1><p class="lead">280 özgün kartı keşfet, sahip olduklarını sergile ve her serideki ilerlemeni takip et.</p><div class="nx-completion"><div class="nx-completion-number"><strong>${owned280.length}</strong><span>/ ${all.length} kart</span></div><div class="nx-completion-copy"><b>%${pct} tamamlandı</b><small>${all.length - owned280.length} kart keşfedilmeyi bekliyor</small><div class="nx-progress-track"><i style="width:${pct}%"></i></div></div></div></section><section class="nx-collection-progress"><h2>Seri ilerlemesi</h2><div class="nx-progress-list">${groups}</div></section><section class="nx-gallery"><div class="catalog-intro"><div><span class="eyebrow">CURATED ARCHIVE</span><h2>280 kartlık galeri</h2><p class="lead">Kilitli kartlar önizlenebilir; sahip olduğun kartlar galeri üzerinde işaretlenir.</p></div><a class="text-link" href="#/browse">Market'e dön ↗</a></div><div class="nx-gallery-grid">${gallery}</div></section><section class="nx-owned-extra"><h2>Diğer sahip oldukların</h2>${PRODUCTS.filter((p) => ME.entitlements[p.id] && !is280(p)).length ? `<div class="grid">${PRODUCTS.filter((p) => ME.entitlements[p.id] && !is280(p)).map(colCard).join("")}</div>` : '<p class="empty">280 kart dışındaki ürünlerin burada görünecek.</p>'}</section>`;
     },
+    async community() {
+      const r = await A.communityListings();
+      const listings = r.items || [];
+      return `<section class="community-head"><span class="eyebrow">NEXUS COMMUNITY EXCHANGE</span><h1>Topluluk pazarı.</h1><p class="lead">Kullanıcıların kendi kart editörlerinde ücretsiz araçlarla oluşturduğu özgün tasarımları keşfet ve satın al. Kart, satın alımda doğrudan senin hesabına aktarılır.</p><div class="community-fee"><b>%30 platform komisyonu</b><span>Satışta fiyatın %30’u platform payı, %70’i satıcının FN bakiyesine aktarılır. Alıcı ilan fiyatını öder.</span></div></section>
+      ${listings.length ? `<div class="community-grid">${listings.map((x) => `<article class="community-card"><div class="community-card-art">${communityArt(x.card, x.id)}</div><div class="community-card-body"><span class="tag">Kullanıcı tasarımı</span><h3>${esc(x.title)}</h3><p>${esc(x.description || 'Özgün topluluk kart tasarımı.')}</p><div class="community-seller">@${esc(x.seller.username)} · ${fmtDate(x.created_at)}</div><div class="community-buy-row"><b>${fmtFN(x.price_minor)} FN</b><button class="btn" data-community-buy="${esc(x.id)}">Satın al</button></div></div></article>`).join('')}</div>` : '<div class="empty">Henüz topluluk ilanı yok. Kendi kartını satışa çıkararak ilk ilanı sen oluşturabilirsin.</div>'}
+      <p class="note">Topluluk satışları oyun içi FN ile gerçekleşir; gerçek para ödemesi veya banka işlemi değildir.</p>`;
+    },
+    async sell() {
+      const r = await A.communityMine(), cards = r.cards || [], listings = r.listings || [];
+      const eligible = cards.filter((c) => c.can_sell);
+      return `<section class="community-head"><span class="eyebrow">YOUR CREATOR DESK</span><h1>Kartını satışa çıkar.</h1><p class="lead">Kendi oluşturduğun ve ücretli Market yüzeyi takılı olmayan kartları listeleyebilirsin. Satışta %30 komisyon kesilir; kalan %70 FN anında hesabına geçer.</p></section>
+      ${listings.length ? `<section class="community-owned-listings"><h2>İlanların</h2>${listings.map((x) => `<div class="item"><div><b>${esc(x.title)}</b><small>${fmtFN(x.price_minor)} FN · Tahmini net: ${fmtFN(x.seller_proceeds_minor)} FN · ${x.status === 'active' ? 'Satışta' : x.status}</small></div>${x.status === 'active' ? `<button class="btn ghost" data-community-cancel="${esc(x.id)}">İlanı geri çek</button>` : ''}</div>`).join('')}</section>` : ''}
+      <h2>Satışa uygun kartların</h2><p class="note">Kartın varsayılan olmamalı ve bakiyesi 0 FN olmalı. Satışa çıkarmadan önce başka kartı varsayılan seç.</p>
+      ${eligible.length ? `<div class="community-sell-grid">${eligible.map((c) => `<article class="community-sell-card" data-market-sell-card="${esc(c.id)}"><div class="community-card-art">${communityArt(c, c.id)}</div><div class="community-card-body"><h3>${esc(c.display_name || c.label || 'Adsız kart')}</h3><small>Özgün kart · ${c.status === 'active' ? 'Aktif' : 'Devre dışı'}</small><label class="field"><span>İlan başlığı</span><input data-title maxlength="60" value="${esc(c.display_name || c.label || 'Özgün kart')}"></label><label class="field"><span>Kısa açıklama</span><textarea data-description maxlength="260" rows="2" placeholder="Tasarımın hakkında kısa bilgi"></textarea></label><label class="field"><span>Satış fiyatı (FN)</span><input data-price type="number" min="0.01" step="0.01" placeholder="Örn. 250"></label><p class="community-net" data-net-preview>Komisyon ve net tutar fiyat girince hesaplanır.</p><button class="btn" data-community-list="${esc(c.id)}">Topluluk pazarında yayınla</button></div></article>`).join('')}</div>` : '<div class="empty">Şu anda satışa uygun kartın yok. Kart oluştur, ücretli yüzey takma, bakiyesini sıfırla ve varsayılan kart olmaktan çıkar.</div>'}
+      ${cards.some((c) => c.market_listing) ? `<h2>Satışta olan kartların</h2><div class="list">${cards.filter(c => c.market_listing).map(c => `<div class="item"><div><b>${esc(c.market_listing.title)}</b><small>${fmtFN(c.market_listing.price_minor)} FN · İlan yayında</small></div><span class="tag">Satışta</span></div>`).join('')}</div>` : ''}`;
+    },
     async wishlist() { const l = PRODUCTS.filter((p) => ME.wishlist.includes(p.id));
       return `<h1>İstek listesi</h1><p class="lead">Kaydettiğin ürünler sahiplik anlamına gelmez.</p>${l.length ? `<div class="grid">${l.map(card).join("")}</div>` : '<div class="empty">Listen boş. Ürün kartındaki kalbe dokunarak ekle.</div>'}`; },
     async history() { const L = await A.ledger();
@@ -243,6 +266,29 @@
         }
       }
       else if (t.hasAttribute("data-close-reveal")) { const m = $("#modal"); m.hidden = true; m.innerHTML = ""; }
+      else if (d.communityBuy) {
+        if (await confirmBox('<h3>Topluluk kartını satın al</h3><p>Kart doğrudan hesabına aktarılır. Ödeme ana FN cüzdanından yapılır. Satıcıya fiyatın %70’i aktarılır.</p>', 'Satın al')) {
+          const result = await A.communityBuy(d.communityBuy, A.uid('cm-buy'));
+          toast(result.replayed ? 'Satın alma zaten tamamlanmış.' : 'Kart satın alındı ve hesabına aktarıldı.');
+          await reload();
+        }
+      }
+      else if (d.communityList) {
+        const cardBox = t.closest('[data-market-sell-card]');
+        const title = cardBox.querySelector('[data-title]').value.trim();
+        const description = cardBox.querySelector('[data-description]').value.trim();
+        const price = cardBox.querySelector('[data-price]').value;
+        if (!title || !price) { toast('İlan başlığını ve FN fiyatını gir.', true); return; }
+        const fee = Math.floor(Math.round(Number(price) * 100) * 0.30), net = Math.round(Number(price) * 100) - fee;
+        if (!await confirmBox(`<h3>İlanı yayınla</h3><p>İlan fiyatı: <b>${fmtFN(Math.round(Number(price) * 100))} FN</b></p><p>Komisyon (%30): ${fmtFN(fee)} FN</p><p>Satış sonrası sana aktarılacak: <b>${fmtFN(net)} FN</b></p>`, 'Yayınla')) return;
+        await A.communityList(d.communityList, title, description, price);
+        toast('Kartın topluluk pazarında yayınlandı.'); await reload();
+      }
+      else if (d.communityCancel) {
+        if (await confirmBox('<h3>İlanı geri çek</h3><p>Kartın tekrar yalnızca senin kullanımına açılacak.</p>', 'İlanı geri çek')) {
+          await A.communityCancel(d.communityCancel); toast('İlan geri çekildi.'); await reload();
+        }
+      }
       else if (d.buy) await buy(d.buy);
       else if (d.wish) { await A.wishlistToggle(d.wish); await refreshMe(); await render(); }
       else if (d.cat) { state.cat = d.cat; await render(); }
@@ -259,7 +305,15 @@
     app.addEventListener("pointermove", (e) => { const el = e.target.closest(".card"); if (!el) return; const r = el.getBoundingClientRect(), x = (e.clientX-r.left)/r.width, y = (e.clientY-r.top)/r.height; el.style.setProperty("--nx-ry", `${(x-.5)*7}deg`); el.style.setProperty("--nx-rx", `${(.5-y)*6}deg`); el.style.setProperty("--nx-glare-x", `${x*100}%`); el.style.setProperty("--nx-glare-y", `${y*100}%`); el.classList.add("nx-tilting"); });
     app.addEventListener("pointerout", (e) => { const el=e.target.closest(".card"); if(el && !el.contains(e.relatedTarget)){ el.classList.remove("nx-tilting"); ["--nx-ry","--nx-rx","--nx-glare-x","--nx-glare-y"].forEach(k=>el.style.removeProperty(k)); } });
   }
-  document.addEventListener("input", (e) => { if (e.target.id === "q") { state.q = e.target.value; render().then(() => { const q = $("#q"); q.focus(); q.setSelectionRange(99, 99); }); } });
+  document.addEventListener("input", (e) => {
+    if (e.target.id === "q") { state.q = e.target.value; render().then(() => { const q = $("#q"); q.focus(); q.setSelectionRange(99, 99); }); }
+    const sellCard = e.target.closest('[data-market-sell-card]');
+    if (sellCard && e.target.matches('[data-price]')) {
+      const value = Math.max(0, Math.round(Number(e.target.value || 0) * 100));
+      const fee = Math.floor(value * 0.30), net = value - fee;
+      sellCard.querySelector('[data-net-preview]').textContent = value ? `%30 komisyon: ${fmtFN(fee)} FN · Sana kalacak: ${fmtFN(net)} FN` : 'Komisyon ve net tutar fiyat girince hesaplanır.';
+    }
+  });
   document.addEventListener("change", (e) => { if (e.target.id === "sort") { state.sort = e.target.value; render().then(() => ($("#sort").value = state.sort)); } });
   let authenticated = false;
   const nexusLoginUrl = () => C.NEXUS_LOGIN_URL || ((C.NEXUS_APP_URL || "https://forevye-nexus.forevyenexus.workers.dev").replace(/\/$/, "") + "/#/shop-launch");

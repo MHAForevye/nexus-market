@@ -45,6 +45,11 @@
     async product(id) { return (await this.products()).find((p) => p.id === id) || fail("NOT_FOUND", "Ürün bulunamadı."); },
     async me() { await loadSeed(); const s = load(); return { balance: s.balance, entitlements: s.ent, wishlist: s.wish }; },
     async ledger() { await wait(150); return load().ledger.slice().reverse(); },
+    async communityListings() { await wait(120); return { items: [], commission_pct: 30 }; },
+    async communityMine() { await wait(120); return { listings: [], cards: [], commission_pct: 30 }; },
+    async communityList() { fail('UNSUPPORTED', 'Topluluk pazarı için gerçek Nexus API bağlantısı gerekir.'); },
+    async communityBuy() { fail('UNSUPPORTED', 'Topluluk pazarı için gerçek Nexus API bağlantısı gerekir.'); },
+    async communityCancel() { fail('UNSUPPORTED', 'Topluluk pazarı için gerçek Nexus API bağlantısı gerekir.'); },
     async wishlistToggle(id) {
       await loadSeed(); const s = load(), p = seed.products.find((x) => x.id === id);
       if (s.wish.includes(id)) s.wish = s.wish.filter((x) => x !== id);
@@ -173,6 +178,11 @@
       }
       return { transaction_id: r.purchase && r.purchase.id, balance: Number(r.balance || 0) / 100, purchase: r.purchase, entitlement: r.entitlement, delivery: r.delivery || null, payment: r.payment || { method: 'wallet' } };
     },
+    async communityListings() { return req('GET', '/community'); },
+    async communityMine() { return req('GET', '/community/mine'); },
+    async communityList(card_id, title, description, price) { return req('POST', '/community/list', { card_id, title, description, price }); },
+    async communityBuy(id, idem) { return req('POST', '/community/' + encodeURIComponent(id) + '/buy', { idem }); },
+    async communityCancel(id) { return req('POST', '/community/' + encodeURIComponent(id) + '/cancel', {}); },
     async rewards() { return []; },
     async advance() { fail("UNSUPPORTED", "Görev ilerlemesi bu mağaza sürümünde etkin değil."); },
     async claim() { fail("UNSUPPORTED", "Ödül kazanımı bu mağaza sürümünde etkin değil."); },
